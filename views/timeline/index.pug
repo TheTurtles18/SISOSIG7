@@ -1,0 +1,16 @@
+head
+    title
+    script(src='https://ajax.googleapis.com/ajax/libs/angularjs/1.6.1/angular.min.js')
+    script(src='controller.js')
+    script(src='../routes')
+    link(rel='stylesheet', href='/stylesheets/style.css')
+    link(rel='stylesheet', href='https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css', integrity='sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO', crossorigin='anonymous')
+img.card-img-top(src='https://cdn8.bigcommerce.com/s-balh3740/images/stencil/1280x1280/products/9019/2270/alan_bald_the_hangover__32476__56611__56457.1354626665.jpg?c=2?imbypass=on' alt='Card image cap' style='width:360px;height:520px;')
+.card-body
+    h5.card-title Should I Shave Or Should I Grow?
+    p.card-text
+    //p Hi there, #{getPosts()}
+    #likeDislike
+        a.btn.like(href="#") Shave
+        a.btn.dislike(href="#") Grow
+    a.btn.btn-primary(href='#') Return to Profile
