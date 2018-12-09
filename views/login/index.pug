@@ -75,7 +75,7 @@ nav.navbar.navbar-expand-lg.navbar-light.bg-light
 h2.page-header  Login 
 div(ng-app='main-app')
   div(ng-controller='loginCtrl')
-    form#myLogin(action='api/login', method='POST')
+    form#myLogin(action='api/user')
       .form-row
         .form-group.col-md-6
           input#first.form-control(type='text', name='first', ng-model='first', placeholder='First Name')

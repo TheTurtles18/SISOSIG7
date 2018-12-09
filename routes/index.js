@@ -22,6 +22,33 @@ router.get('/users', people.getPeople);
      res.render('login/index');
    });
 
+
+var body = {}
+
+router.get('/user', function(req, res, next) {
+  console.log("WHAT THE FUCK IS HAPPENING");  
+  //console.log(req.query.first);
+  console.log("DID THIS WORK");
+  
+   body = {
+    First: req.query.first, 
+    Last: req.query.last,
+    Username: req.query.username, 
+    Password: req.query.password,
+    Email: req.query.email
+  };
+  console.log("THIS IS THE BODY");
+  console.log(body);
+  req.body = body;
+    
+
+  people.createPerson(req, res);
+  
+
+  
+
+  });
+
    router.get('/timeline', function(req, res, next){
      res.render('timeline');
    })
