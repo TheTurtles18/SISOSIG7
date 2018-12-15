@@ -4,6 +4,7 @@ var app = angular.module('main-app',['ngRoute']);
 
 app.config(function($routeProvider){
 	
+	// As of now 12/9/18, this doesn't do anything
 	$routeProvider
 	.when ('/', {
 		templateUrl: 'login/login.pug'
@@ -15,6 +16,7 @@ app.config(function($routeProvider){
 });
 
 app.controller('loginCtrl',['$scope', function($scope){
+	
 	$scope.submit = function(){
 
 		console.log("HEllo world");
@@ -42,6 +44,5 @@ app.controller('loginCtrl',['$scope', function($scope){
 
 	};
 }]);
-
 
 

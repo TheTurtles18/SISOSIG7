@@ -27,10 +27,7 @@ var getPeople = function(req, res) {
     })
 };
 
-
-
 module.exports = {
     createPerson,
-    getPeople
-
+    getPeople,
 }

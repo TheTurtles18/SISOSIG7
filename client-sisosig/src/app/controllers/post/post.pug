@@ -1,0 +1,13 @@
+.body-top-section
+  .container
+    //.alert-success(ng-if='publish.success == true' uib-alert='' close='publish.success = !publish.success') Post created successfully!
+    //.alert-error(ng-if='publish.error == true' uib-alert='' close='publish.error = !publish.error') Oops! Something went wrong.
+    form
+      //- 
+        .form-group
+        <some way to upload picture>
+      .form-group
+        label(for='caption') Caption
+        input#caption.form-control(type='text' ng-model='publish.newPost.caption' rows= '15')
+          | Post
+      button.btn.btn-main-app(type='submit' ng-click='post.createPost()') Go!

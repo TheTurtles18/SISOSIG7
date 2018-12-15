@@ -22,6 +22,10 @@ router.get('/users', people.getPeople);
      res.render('login/index');
    });
 
+   // Get Timeline Page
+   router.get('/timeline', function(req, res, next){
+    res.render('timeline');
+  })
 
 var body = {}
 
@@ -29,29 +33,22 @@ router.get('/user', function(req, res, next) {
   console.log("WHAT THE FUCK IS HAPPENING");  
   //console.log(req.query.first);
   console.log("DID THIS WORK");
-  
-   body = {
-    First: req.query.first, 
-    Last: req.query.last,
-    Username: req.query.username, 
-    Password: req.query.password,
-    Email: req.query.email
+  // Get Input data from form
+  body = {
+  First: req.query.first, 
+  Last: req.query.last,
+  Username: req.query.username, 
+  Password: req.query.password,
+  Email: req.query.email
   };
   console.log("THIS IS THE BODY");
   console.log(body);
+  // Set body of request to info of 
   req.body = body;
-    
 
   people.createPerson(req, res);
-  
 
-  
-
-  });
-
-   router.get('/timeline', function(req, res, next){
-     res.render('timeline');
-   })
+});
 
 
 module.exports = router;

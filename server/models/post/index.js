@@ -1,6 +1,15 @@
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
+/* I think this schema makes more sense for us
+var PostSchema = new Schema ({
+    user: String,
+    caption: String,
+    shave_votes: Number,
+    grow_votes: Number
+    // Some way to reference image
+});*/
+
 var PostSchema = new Schema({
     title: String, 
     body: String, 
