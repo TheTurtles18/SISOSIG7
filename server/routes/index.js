@@ -15,6 +15,11 @@ router.get('/posts', posts.getPosts);
 router.get('/post/:id', posts.getPost);
 router.post('/post/create', posts.createPost);
 
+router.get('/fblogged', function(req, res){
+  
+  res.render('userprofile/index', {name: "Joshua The Cohen"});
+});
+
 
 router.post('/login', people.createPerson);
  
@@ -28,7 +33,10 @@ router.get('/userprofile', function(req, res){
 
 var Product = require('../models/product');
 //POSTING A PITCURE 
-router.post('/p', posts.createPost);
+router.post('/p', upload.single(), function(req, res){
+  console.log(req.file.path);
+  res.send(req.file);
+});
 
 
 router.get('/testImage', function(req, res){

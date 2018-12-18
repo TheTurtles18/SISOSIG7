@@ -9,7 +9,8 @@ var UserSchema = new Schema({
     Last: String,
     Username: String, 
     Password: String,
-    Email: String
+    Email: String,
+    FbId: Number
 
 });
 

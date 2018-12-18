@@ -1,5 +1,111 @@
 extends ../layout
 
+  script.
+    window.fbAsyncInit = function() {
+    FB.init({
+    appId            : '530954160705254',
+    autoLogAppEvents : true,
+    xfbml            : true,
+    version          : 'v3.2'
+    });
+      FB.getLoginStatus(function(response) {
+        console.log("Get Login Status");
+        console.log(response);
+        statusChangeCallback(response);
+      });
+    };
+    (function(d, s, id){
+      
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) {return;}
+    js = d.createElement(s); js.id = id;
+    js.src = "https://connect.facebook.net/en_US/sdk.js";
+    fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));
+
+    function statusChangeCallback(response){
+      if (response.status == 'connected'){
+        console.log('Logged in!');
+        //THIS IS WHERE WE RE-DIRECT THE CLIENT TO THE FEED
+
+        testAPI();
+        console.log(response);
+        setElements(true);
+      } else {
+        console.log('Not authenticated.');
+        setElements(false);
+      }
+    }
+    function testAPI() {
+      console.log('Welcome!  Fetching your information.... ');
+      FB.api('/me?fields=id,first_name,last_name,email,name', function(response) {
+        const Http  = new XMLHttpRequest();
+        const url = 'api/login'
+        console.log(response);
+        var body = {
+          First: response.first_name,
+          Last: response.last_name,
+          Email: response.email,
+          
+          FbId: response.id
+
+        };
+        
+        Http.open("POST", url);
+        Http.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+       
+        Http.send(JSON.stringify(body));
+
+        var xml = new XMLHttpRequest();
+        var url1 = 'api/fblogged';
+        xml.open("GET", url1);
+        console.log("DID MA THING");
+        xml.send();
+
+        console.log('Successful login for: ' + response.name);
+        document.getElementById('profile').innerHTML =
+          'Thanks for logging in, ' + response.name + '!';
+      });
+    }
+
+    function checkLoginState() {
+     // console.log("Check login state");
+      FB.getLoginStatus(function(response) {
+       // console.log(response.authResponse.userID);
+      statusChangeCallback(response);
+      });
+    }
+
+    function setElements(isLoggedIn){
+      if (isLoggedIn){
+        document.getElementById('profile').style.display = 'block';
+        document.getElementById('logout').style.display = 'block';
+        document.getElementById('fb-btn').style.display = 'none';
+      } else {
+        document.getElementById('profile').style.display = 'none';
+        document.getElementById('logout').style.display = 'none';
+        document.getElementById('fb-btn').style.display = 'block';
+      }
+    }
+
+    function logout(){
+      FB.logout(function(response){
+        setElements(false);
+      });
+    }
+
+  nav.navbar.navbar-expand-lg.navbar-light.bg-light
+    a.navbar-brand(href='#') SISOSIG
+    button.navbar-toggler(type='button', data-toggle='collapse', data-target='#navbarNav', aria-controls='navbarNav', aria-expanded='false', aria-label='Toggle navigation')
+      span.navbar-toggler-icon
+    #navbarNav.collapse.navbar-collapse
+      ul.navbar-nav
+        li.nav-item#fb-btn
+          fb:login-button(scope='public_profile,email,user_photos' onlogin='checkLoginState();')
+        li.nav-item#profile
+          a.nav-link(href='#') My Profile
+        li.nav-item#logout
+          a(href='#' onclick="logout()") Logout
 block content       
   h2.page-header  Login 
   div(ng-app='main-app')

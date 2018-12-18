@@ -14,9 +14,8 @@ block content
             ul
                 li(ng-bind="username")
                 li Upload An Image
-                li Recent
-        
-        h4(ng-bind="firstname")
+                li Recent #{name}
+        h4(ng-bind="firstname") 
         h4(ng-bind="lastname")
         h4(ng-bind="email")
 
@@ -29,7 +28,7 @@ block content
       app.controller('myCtrl', function($scope, $http) {
         $http({
           method : "GET",
-          url : './u/'+"5c1887890b7193f1fdacda8e"
+          url : './u/'
         })
         .then(function(response) {
           $scope.firstname = response.data.First;
