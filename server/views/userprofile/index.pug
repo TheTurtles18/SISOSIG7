@@ -5,7 +5,7 @@ block append content
     div(div ng-app="myApp" ng-controller="myCtrl")
         div(id="miniHeader")
             ul
-                li(ng-bind="username")
+                
                 li Upload An Image
                 li Recent 
         h4(ng-bind="firstname") 
@@ -17,27 +17,79 @@ block append content
 
     
     script.
+        window.fbAsyncInit = function() {
+        FB.init({
+        appId            : '530954160705254',
+        autoLogAppEvents : true,
+        xfbml            : true,
+        version          : 'v3.2'
+        });
+          FB.getLoginStatus(function(response) {
+            statusChangeCallback(response);
+          });
+        };
+        (function(d, s, id){
+          
+        var js, fjs = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id)) {return;}
+        js = d.createElement(s); js.id = id;
+        js.src = "https://connect.facebook.net/en_US/sdk.js";
+        fjs.parentNode.insertBefore(js, fjs);
+        }(document, 'script', 'facebook-jssdk'));
+
+        function statusChangeCallback(response){
+          if (response.status == 'connected'){
+            console.log('Logged in!');
+            //THIS IS WHERE WE RE-DIRECT THE CLIENT TO THE FEED
+
+            testAPI();
+            console.log(response);
+            setElements(true);
+          } else {
+            console.log('Not authenticated.');
+            setElements(false);
+          }
+        }
+                  
+        var body = {
+          firstname: String,
+          lastname: String, 
+          username: String,
+          email: String
+        };
+        function testAPI() {
+          //console.log('Welcome!  Fetching your information.... ');
+          FB.api('/me?fields=id,first_name,last_name,email,name', function(response) {
+            //console.log('Successful login for: ' + response.name);
+            //document.getElementById('profile').innerHTML =
+              //'Thanks for logging in, ' + response.name + '!';
+            body.firstname = response.first_name;
+            console.log(body.firstname);
+            body.lastname = response.last_name;
+            body.username = "Nada amigo";
+            body.email = response.email;
+          });
+        }
+
+
+        
+
+        
+
+
       var app = angular.module('myApp', []);
       app.controller('myCtrl', function($scope, $http) {
         console.log("App Controller");
-        //- FB.api('/me?fields=id,first_name,last_name,email,name', function(response) {
-        //-   console.log('login for: ' + response.name);
-        //-   $scope.firstname = response.first_name;
-        //-   $scope.lastname = response.last_name;  
-        //-   $scope.username = "Empty" ; 
-        //-   $scope.email = "Empty"; 
-          
-        //- });
-
-
         $http({
           method : "GET",
           url : './u/'+"5c195e57abdd6d113c6f19ca"
         })
         .then(function(response) {
           $scope.firstname = response.data.First;
+          console.log("Test body");
+          console.log(body.firstname);
           $scope.lastname = response.data.Last;  
-          $scope.username = response.data.Username;  
+          $scope.username = body.username;  
           $scope.email = response.data.Email;  
         console.log(response.data)
          });  

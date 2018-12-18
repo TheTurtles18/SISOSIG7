@@ -1,5 +1,6 @@
 extends ../layout
 
+block scripts
   script.
     window.fbAsyncInit = function() {
     FB.init({
@@ -94,18 +95,7 @@ extends ../layout
       });
     }
 
-  nav.navbar.navbar-expand-lg.navbar-light.bg-light
-    a.navbar-brand(href='#') SISOSIG
-    button.navbar-toggler(type='button', data-toggle='collapse', data-target='#navbarNav', aria-controls='navbarNav', aria-expanded='false', aria-label='Toggle navigation')
-      span.navbar-toggler-icon
-    #navbarNav.collapse.navbar-collapse
-      ul.navbar-nav
-        li.nav-item#fb-btn
-          fb:login-button(scope='public_profile,email,user_photos' onlogin='checkLoginState();')
-        li.nav-item#profile
-          a.nav-link(href='#') My Profile
-        li.nav-item#logout
-          a(href='#' onclick="logout()") Logout
+  
 block content       
   h2.page-header  Login 
   div(ng-app='main-app')
