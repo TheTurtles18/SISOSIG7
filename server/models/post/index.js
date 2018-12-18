@@ -13,18 +13,23 @@ var PostSchema = new Schema ({
 });*/
 
 var PostSchema = new Schema({
-    title: String, 
-    body: String, 
+    img: { data: Buffer, contentType: String },
     createdAt: {type: Date, default: Date.now},
-    author: String, 
-    published: {type: Boolean, default: false},
-    meta: {
-        likes: Number
-    }
+    shaves: Number,
+    grows: Number
 });
+
+
+// var  photoSchema = new Schema({
+
+//     path:  { type: String },
+  
+//     caption: { type: String }
+//     });
 
 // this is a start to the schema we'll be developing, 
 // but it's commented out for now so that we can test the example postschema version
 
 
 module.exports = mongoose.model('Posts', PostSchema);
+//module.exports = mongoose.model("Photos", photoSchema);

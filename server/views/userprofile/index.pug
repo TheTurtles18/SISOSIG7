@@ -8,18 +8,20 @@ block content
     
     link(rel='stylesheet', href='https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css', integrity='sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO', crossorigin='anonymous')
   h2.page-header  User Page 
-  div(div ng-app="myApp" ng-controller="myCtrl")
-    div(id="miniHeader")
-        ul
-            li(ng-bind="username")
-            li Upload An Image
-            li Recent
-    
-    h4(ng-bind="firstname")
-    h4(ng-bind="lastname")
-    h4(ng-bind="email")
+    div(div ng-app="myApp" ng-controller="myCtrl")
+        div(id="miniHeader")
+            ul
+                li(ng-bind="username")
+                li Upload An Image
+                li Recent
+        
+        h4(ng-bind="firstname")
+        h4(ng-bind="lastname")
+        h4(ng-bind="email")
 
-    
+       
+            
+
     
     script.
       var app = angular.module('myApp', []);
@@ -34,6 +36,8 @@ block content
           $scope.username = response.data.Username;  
           $scope.email = response.data.Email;  
         console.log(response.data)
+
+
         
          });  
       });
