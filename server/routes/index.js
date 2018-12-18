@@ -1,15 +1,18 @@
 var express = require('express');
 var router = express.Router();
+
+var multer = require('multer');
+var upload = multer({dest: 'uploads/'});
+
 //const data = require('../controller');
 
 var base = process.env.PwD;
 var posts = require('../controllers/posts');
 var people = require('../controllers/people');
 
-router.get('/posts', posts.getPosts)
+router.get('/posts', posts.getPosts);
 
 router.get('/post/:id', posts.getPost);
-router.put('/post/:id', posts.updatePost);
 router.post('/post/create', posts.createPost);
 
 
@@ -17,17 +20,27 @@ router.post('/login', people.createPerson);
  
 router.get('/u/:id', people.getPerson);
 
+
 router.get('/userprofile', function(req, res){
   res.render('userprofile/index');
 });
 
+
+var Product = require('../models/product');
+//POSTING A PITCURE 
+router.post('/p', posts.createPost);
+
+
+router.get('/testImage', function(req, res){
+  res.render('imageTest/index');
+});
 
 /* GET home page. */
    router.get('/', function(req, res, next) {
      res.render('login/index');
    });
 
-   // Get Timeline Page
+   // Get Timeline Pa'ge
    router.get('/timeline', function(req, res, next){
     res.render('timeline');
   })

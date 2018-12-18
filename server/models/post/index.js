@@ -12,8 +12,16 @@ var PostSchema = new Schema ({
     // Some way to reference image
 });
 
+// var  photoSchema = new Schema({
+
+//     path:  { type: String },
+  
+//     caption: { type: String }
+//     });
+
 // this is a start to the schema we'll be developing, 
 // but it's commented out for now so that we can test the example postschema version
 
 
 module.exports = mongoose.model('Posts', PostSchema);
+//module.exports = mongoose.model("Photos", photoSchema);
