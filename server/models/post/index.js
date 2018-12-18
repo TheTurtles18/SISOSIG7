@@ -1,5 +1,7 @@
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
+// Unit Test
+mongoose.Promise = global.Promise;
 
 /* I think this schema makes more sense for us
 var PostSchema = new Schema ({
