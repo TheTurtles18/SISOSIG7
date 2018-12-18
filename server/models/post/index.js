@@ -3,24 +3,13 @@ var Schema = mongoose.Schema;
 // Unit Test
 mongoose.Promise = global.Promise;
 
-/* I think this schema makes more sense for us
 var PostSchema = new Schema ({
     user: String,
     caption: String,
-    shave_votes: Number,
-    grow_votes: Number
+    createdAt: {type: Date, default: Date.now()},
+    shave_votes: {type: Number, default: 0},
+    grow_votes: {type: Number, default: 0}
     // Some way to reference image
-});*/
-
-var PostSchema = new Schema({
-    title: String, 
-    body: String, 
-    createdAt: {type: Date, default: Date.now},
-    author: String, 
-    published: {type: Boolean, default: false},
-    meta: {
-        likes: Number
-    }
 });
 
 // this is a start to the schema we'll be developing, 

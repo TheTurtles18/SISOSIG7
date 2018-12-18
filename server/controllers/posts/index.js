@@ -16,7 +16,6 @@ var getPosts = function(req, res) {
         if(err) {res.send(500,err);}
         res.json(200, posts);
     })
-    console.log("We got the request guy!");
 };
 
 var getPost = function(req, res){
@@ -30,7 +29,13 @@ var updatePost = function(req, res){
     Post.findById(req.params.id, function(err, post){
         if(err) {res.send(500, err);}
 
-        if(req.body.title) {post.title = req.body.title;}
+        if (req.params.type === 0) {
+
+            post.shave_votes += 1;
+        } else {
+            console.log("HELOOO"+req.params.type);
+            post.grow_votes += 1;
+        }
 
         post.save(function(err, post){
             if(err) {res.send(500, err);}
@@ -39,7 +44,6 @@ var updatePost = function(req, res){
 
     })
 };
-
 
 
 module.exports = {

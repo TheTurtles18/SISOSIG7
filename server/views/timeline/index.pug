@@ -79,13 +79,13 @@ div(ng-app='main-app' ng-controller='postController')
       .card(ng-repeat='post in postArray')
           img.card-img-top(src='http://placehold.it/350x150')
           .card-block
-              h3.card-title {{post.author}}
+              h3.card-title {{post.caption}}
               h5 {{post.createdAt | date: 'medium'}}
               #likeDislike
-                  h6.card-shaves {{post.shaves}}
-                  a.btn.like(href='#') Shave
-                  h6.card-grows {{post.grows}}
-                  a.btn.dislike(href='#') Grow
+                  h6.card-shaves {{post.shave_votes}}
+                  a.btn.like(href='#' ng-click='updatePost({{post._id}}, 0)') Shave
+                  h6.card-grows {{post.grow_votes}}
+                  a.btn.dislike(href='#' ng-click='updatePost({{post._id}}, 1)') Grow
 
   script.
     var app = angular.module("main-app", []);
@@ -97,31 +97,11 @@ div(ng-app='main-app' ng-controller='postController')
         })
       }
       $scope.postLoader();
+      
+      $scope.updatePost = function(id, type) {
+        var data = $.param({type: type});
+        $http.put('./post/'+id+'?'+data).then(function(response) {
+          $scope.dummy = response.data;
+        });
+      }
     });
-
-//-
-  .row
-    .col-md-4
-      .card(style='width: 18rem;')
-        img.card-img-top(src='https://cdn8.bigcommerce.com/s-balh3740/images/stencil/1280x1280/products/9019/2270/alan_bald_the_hangover__32476__56611__56457.1354626665.jpg?c=2?imbypass=on', alt='Card image cap')
-        .card-body
-          #likeDislike
-            a.btn.like(href='#') Shave
-            a.btn.dislike(href='#') Grow
-          a.btn.btn-primary(href='#') Return to Profile
-    .col-md-4
-      .card(style='width: 18rem;')
-        img.card-img-top(src='https://cdn8.bigcommerce.com/s-balh3740/images/stencil/1280x1280/products/9019/2270/alan_bald_the_hangover__32476__56611__56457.1354626665.jpg?c=2?imbypass=on', alt='Card image cap')
-        .card-body
-          #likeDislike
-            a.btn.like(href='#') Shave
-            a.btn.dislike(href='#') Grow
-          a.btn.btn-primary(href='#') Return to Profile
-    .col-md-4
-      .card(style='width: 18rem;')
-        img.card-img-top(src='https://cdn8.bigcommerce.com/s-balh3740/images/stencil/1280x1280/products/9019/2270/alan_bald_the_hangover__32476__56611__56457.1354626665.jpg?c=2?imbypass=on', alt='Card image cap')
-        .card-body
-          #likeDislike
-            a.btn.like(href='#') Shave
-            a.btn.dislike(href='#') Grow
-          a.btn.btn-primary(href='#') Return to Profile
