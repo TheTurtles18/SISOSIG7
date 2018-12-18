@@ -20,8 +20,8 @@ block content
           url : './u/5c101ebd823a8550b0924c38' 
         })
         .then(function(response) {
-          $scope.data = "response.body";
-        console.log("Hellow world")
+          $scope.data = response.body;
+        console.log(response)
         $scope.lastname = "COHEN";  
          });  
       });

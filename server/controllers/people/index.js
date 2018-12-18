@@ -27,7 +27,18 @@ var getPeople = function(req, res) {
     })
 };
 
+
+var getPerson = function(req, res) {
+    Person.findById(req.params.id, function(err, person){
+        if(err) {res.send(500, err);}
+        res.json(200, person);
+    });
+}
+
+
+
 module.exports = {
     createPerson,
     getPeople,
+    getPerson
 }

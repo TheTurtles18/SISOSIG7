@@ -14,7 +14,7 @@ router.post('/post/create', posts.createPost);
 
 router.post('/login', people.createPerson);
  
-router.get('/userprofile', people.getPeople);
+router.get('/u/:id', people.getPerson);
 
 router.get('/userprofile', function(req, res){
   res.render('userprofile/index');
