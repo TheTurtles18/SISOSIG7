@@ -16,6 +16,7 @@ var getPosts = function(req, res) {
         if(err) {res.send(500,err);}
         res.json(200, posts);
     })
+    console.log("We got the request guy!");
 };
 
 var getPost = function(req, res){

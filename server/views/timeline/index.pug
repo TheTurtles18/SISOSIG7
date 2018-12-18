@@ -72,42 +72,56 @@ nav.navbar.navbar-expand-lg.navbar-light.bg-light
       li.nav-item#logout
         a(href='#' onclick="logout()") Logout
 br
-// posts <-- we'll eventually 
-.row
-  .col-md-4
-    .card(style='width: 18rem;')
-      img.card-img-top(src='https://cdn8.bigcommerce.com/s-balh3740/images/stencil/1280x1280/products/9019/2270/alan_bald_the_hangover__32476__56611__56457.1354626665.jpg?c=2?imbypass=on', alt='Card image cap')
-      .card-body
-        #likeDislike
-          a.btn.like(href='#') Shave
-          a.btn.dislike(href='#') Grow
-        a.btn.btn-primary(href='#') Return to Profile
-  .col-md-4
-    .card(style='width: 18rem;')
-      img.card-img-top(src='https://cdn8.bigcommerce.com/s-balh3740/images/stencil/1280x1280/products/9019/2270/alan_bald_the_hangover__32476__56611__56457.1354626665.jpg?c=2?imbypass=on', alt='Card image cap')
-      .card-body
-        #likeDislike
-          a.btn.like(href='#') Shave
-          a.btn.dislike(href='#') Grow
-        a.btn.btn-primary(href='#') Return to Profile
-  .col-md-4
-    .card(style='width: 18rem;')
-      img.card-img-top(src='https://cdn8.bigcommerce.com/s-balh3740/images/stencil/1280x1280/products/9019/2270/alan_bald_the_hangover__32476__56611__56457.1354626665.jpg?c=2?imbypass=on', alt='Card image cap')
-      .card-body
-        #likeDislike
-          a.btn.like(href='#') Shave
-          a.btn.dislike(href='#') Grow
-        a.btn.btn-primary(href='#') Return to Profile
 
-//- Potential Replacement for above, ng-repeat allows for programmatic generation of cards
+div(ng-app='main-app' ng-controller='postController')
   .container.main
+    .row
+      .card(ng-repeat='post in postArray')
+          img.card-img-top(src='http://placehold.it/350x150')
+          .card-block
+              h3.card-title {{post.author}}
+              h5 {{post.createdAt | date: 'medium'}}
+              #likeDislike
+                  h6.card-shaves {{post.shaves}}
+                  a.btn.like(href='#') Shave
+                  h6.card-grows {{post.grows}}
+                  a.btn.dislike(href='#') Grow
+
+  script.
+    var app = angular.module("main-app", []);
+    app.controller("postController", function($scope, $http) {
+      $scope.postArray = [];
+      $scope.postLoader = function() {
+        $http.get('posts/').then(function(response) {
+          $scope.postArray = response.data
+        })
+      }
+      $scope.postLoader();
+    });
+
+//-
   .row
-    .card.(ng-repeat='post in posts.posts <getPosts?>' ng-if='post.published == true')
-      img.card-img-top(src={<picture for that post, not sure how we're gonna get that yet tho...>})
-      .card-block
-        h3.card-title {{post.author}}
-        #likeDislike
-            h6.card-shaves {{post.shave-votes}}
+    .col-md-4
+      .card(style='width: 18rem;')
+        img.card-img-top(src='https://cdn8.bigcommerce.com/s-balh3740/images/stencil/1280x1280/products/9019/2270/alan_bald_the_hangover__32476__56611__56457.1354626665.jpg?c=2?imbypass=on', alt='Card image cap')
+        .card-body
+          #likeDislike
             a.btn.like(href='#') Shave
-            h6.card-grows {{post.grow-votes}}
             a.btn.dislike(href='#') Grow
+          a.btn.btn-primary(href='#') Return to Profile
+    .col-md-4
+      .card(style='width: 18rem;')
+        img.card-img-top(src='https://cdn8.bigcommerce.com/s-balh3740/images/stencil/1280x1280/products/9019/2270/alan_bald_the_hangover__32476__56611__56457.1354626665.jpg?c=2?imbypass=on', alt='Card image cap')
+        .card-body
+          #likeDislike
+            a.btn.like(href='#') Shave
+            a.btn.dislike(href='#') Grow
+          a.btn.btn-primary(href='#') Return to Profile
+    .col-md-4
+      .card(style='width: 18rem;')
+        img.card-img-top(src='https://cdn8.bigcommerce.com/s-balh3740/images/stencil/1280x1280/products/9019/2270/alan_bald_the_hangover__32476__56611__56457.1354626665.jpg?c=2?imbypass=on', alt='Card image cap')
+        .card-body
+          #likeDislike
+            a.btn.like(href='#') Shave
+            a.btn.dislike(href='#') Grow
+          a.btn.btn-primary(href='#') Return to Profile

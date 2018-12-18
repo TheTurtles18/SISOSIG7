@@ -10,24 +10,28 @@
       var directive = {
         restrict: 'E',
         bindToController: true,
-        templateUrl: 'views/timeline/index.pug',
+        templateUrl: 'views/timeline/posts.pug',
         controller: PostController,
-        controllerAs: 'posts'
+        controllerAs: 'post_controller'
       };
   
       return directive;
   
       /** @ngInject */
-      function PostController($log, postService) {
+      function PostController($log, $http) { // Used to be postService
         var vm = this;
-        vm.posts = [];
-  
-        postService.getPosts().then(function(data) {
-          $log.debug(data);
-          vm.posts = data;
-        }).catch(function (err) {
-          $log.debug(err);
-        });
+        vm.postArray = [];
+
+        vm.onLoad = function() {
+          $http.get('posts/').then(function(response) {
+            $log.debug(response);
+            vm.postArray = response.data;
+          }).catch(function (err) {
+            $log.debug(err);
+          });
+        }
+
+        vm.onLoad();
       }
     }
   })();

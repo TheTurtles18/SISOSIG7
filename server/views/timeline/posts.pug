@@ -1,0 +1,13 @@
+p Hello!
+.container.main
+  .row
+    .card(ng-repeat='post in post_controller.postArray')
+    img.card-img-top(src='http://placehold.it/350x150')
+    .card-block
+        h3.card-title {{post.author}}
+        h5 {{post.createdAt | date: 'medium'}}
+        #likeDislike
+            h6.card-shaves {{post.shave-votes}}
+            a.btn.like(href='#') Shave
+            h6.card-grows {{post.grow-votes}}
+            a.btn.dislike(href='#') Grow
