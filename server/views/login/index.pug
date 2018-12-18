@@ -42,7 +42,30 @@ block head
     }
     function testAPI() {
       console.log('Welcome!  Fetching your information.... ');
-      FB.api('/me', function(response) {
+      FB.api('/me?fields=id,first_name,last_name,email,name', function(response) {
+        const Http  = new XMLHttpRequest();
+        const url = 'api/login'
+        console.log(response);
+        var body = {
+          First: response.first_name,
+          Last: response.last_name,
+          Email: response.email,
+          
+          FbId: response.id
+
+        };
+        
+        Http.open("POST", url);
+        Http.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+       
+        Http.send(JSON.stringify(body));
+
+        var xml = new XMLHttpRequest();
+        var url1 = 'api/fblogged';
+        xml.open("GET", url1);
+        console.log("DID MA THING");
+        xml.send();
+
         console.log('Successful login for: ' + response.name);
         document.getElementById('profile').innerHTML =
           'Thanks for logging in, ' + response.name + '!';

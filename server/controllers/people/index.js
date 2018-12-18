@@ -13,7 +13,7 @@ var body =
 var createPerson = function (req, res) {
     console.log("Creating a person");
     var person = new Person(req.body);
-
+    console.log(req.body);
     person.save(function (err, person){
         if(err) {res.send(500,err);}
         res.json(200, person);
@@ -34,6 +34,8 @@ var getPerson = function(req, res) {
         res.json(200, person);
     });
 }
+
+
 
 
 
