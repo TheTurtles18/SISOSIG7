@@ -14,7 +14,11 @@ router.post('/post/create', posts.createPost);
 
 router.post('/login', people.createPerson);
  
-router.get('/users', people.getPeople);
+router.get('/userprofile', people.getPeople);
+
+router.get('/userprofile', function(req, res){
+  res.render('userprofile/index');
+});
 
 
 /* GET home page. */
