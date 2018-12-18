@@ -9,19 +9,31 @@ block content
     link(rel='stylesheet', href='https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css', integrity='sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO', crossorigin='anonymous')
   h2.page-header  User Page 
   div(div ng-app="myApp" ng-controller="myCtrl")
-    p(ng-bind="data")
-    p(ng-bind="lastname")
+    div(id="miniHeader")
+        ul
+            li(ng-bind="username")
+            li Upload An Image
+            li Recent
+    
+    h4(ng-bind="firstname")
+    h4(ng-bind="lastname")
+    h4(ng-bind="email")
+
+    
     
     script.
       var app = angular.module('myApp', []);
       app.controller('myCtrl', function($scope, $http) {
         $http({
           method : "GET",
-          url : './u/5c101ebd823a8550b0924c38' 
+          url : './u/'+"5c1887890b7193f1fdacda8e"
         })
         .then(function(response) {
-          $scope.data = response.body;
-        console.log(response)
-        $scope.lastname = "COHEN";  
+          $scope.firstname = response.data.First;
+          $scope.lastname = response.data.Last;  
+          $scope.username = response.data.Username;  
+          $scope.email = response.data.Email;  
+        console.log(response.data)
+        
          });  
       });
