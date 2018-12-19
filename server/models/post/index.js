@@ -7,6 +7,7 @@ var PostSchema = new Schema ({
     userId: String,
     user_firstname: String,
     caption: String,
+    photoId: String,
     createdAt: {type: Date, default: Date.now()},
     shave_votes: {type: Number, default: 0},
     grow_votes: {type: Number, default: 0},
