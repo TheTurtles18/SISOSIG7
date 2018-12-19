@@ -18,7 +18,7 @@ block append content
   div(div='div' ng-app='main-app' ng-controller='postController')
     .row
       .card.col-md-3(ng-repeat='post in postArray')
-        img.card-img-top(src='http://placehold.it/350x150')
+        img.card-img-top(ng-src="{{cardPic}}")
         .card-block
           h3.card-title {{post.caption}}
           h5 {{post.createdAt | date: 'medium'}}
@@ -55,6 +55,21 @@ block append content
         $log.debug(err);
       });
     }
+
+      console.log("TEST");
+      //$scope.cardPic = "http://placehold.it/200x150";
+      $http({
+        method: 'GET',
+        url: 'api/images/' + '3f1b1a6c776af0db1b9734bef3b2b081.jpg'
+      }).then(function(response){
+        console.log(response);
+        $scope.cardPic = response;    
+      }).catch(function(err) {
+        console.log("catch");
+        $log.debug(err);
+      });
+
+
     });
 
 
