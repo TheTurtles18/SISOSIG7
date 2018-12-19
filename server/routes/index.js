@@ -76,6 +76,8 @@ router.get('/user', function(req, res, next) {
 
   people.createPerson(req, res);
 
+  res.render('userprofile/index');
+
 });
 
 
