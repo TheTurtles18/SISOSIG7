@@ -1,6 +1,7 @@
 extends ../layout
 
-block content
+block append content
+  h2.page-header Timeline
   div(ng-app='main-app' ng-controller='postController')
     .container.main
       .row
