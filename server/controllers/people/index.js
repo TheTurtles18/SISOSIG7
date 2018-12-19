@@ -13,7 +13,7 @@ var body =
 var createPerson = function (req, res) {
     console.log("Creating a person");
     var person = new Person(req.body);
-
+    console.log(req.body);
     person.save(function (err, person){
         if(err) {res.send(500,err);}
         res.json(200, person);
@@ -35,10 +35,21 @@ var getPerson = function(req, res) {
     });
 }
 
+var findPerson = function(req, res){
+    console.log("Finding a person");
+    Person.findOne({FbId: req.params.id}, function(err, person){
+        console.log("looking for a person");
+        if(err){res.send(500, err);}
+        res.json(200, person);
+    });
+}
+
+
 
 
 module.exports = {
     createPerson,
     getPeople,
-    getPerson
+    getPerson, 
+    findPerson
 }

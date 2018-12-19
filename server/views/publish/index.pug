@@ -1,0 +1,35 @@
+extends ../layout
+
+block content
+	div (ng-app='main-app' ng-controller='publishController')
+	.top-section
+	  .container
+	    form
+	      .form-group
+	        label(for='caption') Caption
+	        input#caption.form-control(type='text', ng-model='newPost.caption')
+	        button.btn.btn-primary(ng-click='create()', type='submit')  Create
+
+
+
+
+    script.
+      var app = angular.module("main-app", []);
+      
+      app.controller("publishController", function($scope, $http) {
+
+      	$scope.newPost = {
+      		 caption = ''
+      	}
+
+      	$scope.createPost = function() {
+      		$http({
+      			method : "POST",
+      			url : "post/create",
+      			data : newPost
+      		})
+   
+      	$scope.createPost();
+    };
+    });
+

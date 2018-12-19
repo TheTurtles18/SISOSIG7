@@ -13,7 +13,12 @@ var people = require('../controllers/people');
 router.get('/posts', posts.getPosts);
 router.get('/post/:id', posts.getPost);
 router.post('/post/create', posts.createPost);
+<<<<<<< HEAD
 router.put('/post/:id', posts.updatePost);
+=======
+
+router.get('/fblogged/:id', people.findPerson);
+>>>>>>> 1f58026ac30d3ce6c3b395899c98dae5a7b1fc4c
 
 router.post('/login', people.createPerson);
 router.get('/u/:id', people.getPerson);
@@ -25,7 +30,10 @@ router.get('/userprofile', function(req, res){
 
 var Product = require('../models/product');
 //POSTING A PITCURE 
-router.post('/p', posts.createPost);
+router.post('/p', upload.single(), function(req, res){
+  console.log(req.file.path);
+  res.send(req.file);
+});
 
 
 router.get('/testImage', function(req, res){
@@ -38,9 +46,15 @@ router.get('/testImage', function(req, res){
    });
 
    // Get Timeline Pa'ge
-   router.get('/timeline', function(req, res, next){
+   router.get('/timeline', function(req, res){
     res.render('timeline');
   })
+
+  router.get('/publish', function(req, res){
+    res.render('publish/index');
+  })
+
+
 
 var body = {}
 
@@ -62,6 +76,8 @@ router.get('/user', function(req, res, next) {
   req.body = body;
 
   people.createPerson(req, res);
+
+  
 
 });
 

@@ -24,3 +24,65 @@ a {
   display: none;
   margin-top: 10px;
 }
+
+.resize{
+	max-width:90%;
+	width: 100%;
+    height: auto;
+}
+
+.login-page{
+	margin:50px;
+	padding:5px;
+}
+
+.btn{
+	background-color: #36374a;
+	border:none;
+	font-family: 'Lato', sans-serif;
+}
+
+.btn:hover{
+	background-color:#606284;
+	border:none;
+}
+
+
+.form-control{
+	border-color: #36374a;
+	font-family: 'Lato', sans-serif;
+
+}
+
+.form-control:focus {
+  border-color: #606284;
+  box-shadow: 1px 1px #606284;
+}
+
+.page-header{
+	color: #d44243;
+	font-family: 'Patua One', cursive;
+	font-size:60px;
+}
+
+.navbar{
+    position:absolute;
+    top:0px;
+    left:0px;
+    width:100%;
+    height:70px;
+	background-color:#36374a!important;
+}
+
+.navbar-brand{
+	color:white;
+}
+
+.navbar-brand:hover{
+	color: #ced3db;
+}
+
+#profile{
+	color:white;
+}
+

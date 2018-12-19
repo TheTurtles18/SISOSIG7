@@ -1,10 +1,40 @@
-head
-  title
-  script(src='https://ajax.googleapis.com/ajax/libs/angularjs/1.6.1/angular.min.js')
-  script(src='../routes')
-  link(rel='stylesheet', href='/stylesheets/style.css')
-  link(rel='stylesheet', href='https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css', integrity='sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO', crossorigin='anonymous')
+extends ../layout
 
+block content
+  div(ng-app='main-app' ng-controller='postController')
+    .container.main
+      .row
+        .card(ng-repeat='post in postArray')
+            img.card-img-top(src='http://placehold.it/350x150')
+            .card-block
+                h3.card-title {{post.caption}}
+                h5 {{post.createdAt | date: 'medium'}}
+                #likeDislike
+                    h6.card-shaves {{post.shave_votes}}
+                    a.btn.like(href='#' ng-click='updatePost({{post._id}}, 0)') Shave
+                    h6.card-grows {{post.grow_votes}}
+                    a.btn.dislike(href='#' ng-click='updatePost({{post._id}}, 1)') Grow
+
+    script.
+      var app = angular.module("main-app", []);
+      app.controller("postController", function($scope, $http) {
+        $scope.postArray = [];
+        $scope.postLoader = function() {
+          $http.get('posts/').then(function(response) {
+            $scope.postArray = response.data
+          })
+        }
+        $scope.postLoader();
+        
+        $scope.updatePost = function(id, type) {
+          var data = $.param({type: type});
+          $http.put('./post/'+id+'?'+data).then(function(response) {
+            $scope.dummy = response.data;
+          });
+        }
+      });
+
+<<<<<<< HEAD
 script.
   window.fbAsyncInit = function() {
    FB.init({
@@ -112,3 +142,5 @@ script.
     });
   }
   });
+=======
+>>>>>>> 1f58026ac30d3ce6c3b395899c98dae5a7b1fc4c
