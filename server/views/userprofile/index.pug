@@ -11,17 +11,17 @@ block append content
     hr
     h3 My Posts
     div
+
       .row
-      .card.col-md-3(ng-repeat='post in postArray' ng-if='post.FBid == 1')
-        img.card-img-top(src='http://placehold.it/350x150')
-        .card-block
-          h3.card-title {{post.caption}}
-          h5 {{post.createdAt | date: 'medium'}}
-          #likeDislike
-            h6.card-shaves {{post.shave_votes}}
-            a.btn.like(ng-click="updatePost(post._id, 'shave')") Shave
-            h6.card-grows {{post.grow_votes}}
-            a.btn.dislike(ng-click="updatePost(post._id, 'grow')") Grow
+        .card.col-md-3(ng-repeat='post in postArray', ng-if='post.userId == 1')
+          img.card-img-top(src='http://placehold.it/350x150')
+          .card-block
+            h3.card-title {{post.caption}}
+            h5 {{post.createdAt | date: &apos;medium&apos;}}
+            #likeDislike
+              h6.card-shaves {{post.shave_votes}} Shaves 
+            #likeDislike
+              h6.card-grows {{post.grow_votes}} Grows
 
     script.
       console.log("cookie kevin");
@@ -82,10 +82,11 @@ block append content
             $log.debug(err);
           });
         }
-        $scope.postLoader();  
-         $scope.updatePost = function(id, type) {
+        $scope.postLoader();
+
+        $scope.updatePost = function(id, type) {
           console.log(id + " " + type);
-            $http({
+          $http({
             method: 'PUT',
             url: 'api/post/'+id+'?type='+type}).then(function(response) {
               console.log("then");
@@ -96,9 +97,4 @@ block append content
             $log.debug(err);
           });
         }
-
-
-      })    
-        
-        
-  
+      });

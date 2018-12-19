@@ -1,5 +1,10 @@
+#likeDislike{
+	display:inline-block;
+	padding:10px;
+}
 body {
-  padding: 50px;
+	padding: 50px;
+	background-color: #ececf9;
 }
 
 .resize{
@@ -14,8 +19,13 @@ body {
 	border:none;
 }
 
+#createPost {
+	text-align:center;
+	display:block;
+}
 
- // =========== NAV STYLING ===========  
+
+ /* =========== NAV STYLING ===========  */
 
 
 .nav-item a{
@@ -31,10 +41,9 @@ body {
 }
 
 .prof:hover, .logout:hover{
-	color:#BAC9D9!important;
+	color:#ececf9!important;
 	text-decoration:none;
 }
-
 
 .navbar{
     position:absolute;
@@ -50,7 +59,7 @@ body {
 }
 
 .navbar-brand:hover{
-	color:#BAC9D9!important;
+	color:#ececf9!important;
 	text-decoration:none;
 }
 
@@ -69,7 +78,7 @@ body {
 }
 
 
-// =========== CARD STYLING ===========
+/* =========== CARD STYLING =========== */
 
 
 .card-img-top {
@@ -100,7 +109,8 @@ body {
 }
 
 .page-header{
-	color: #d44243;
+	text-align: center;
+	color: #36374a;
 	font-family: 'Patua One', cursive;
 	font-size:60px;
 }
@@ -108,6 +118,10 @@ body {
 .card {
 	padding: 10px;
 	margin: 30px;
+	background-color: #d9d9f2;
+	border-style: solid;
+	border-width: 5px;
+	border-color: #ffffff;
 }
 
 .card-img-top{

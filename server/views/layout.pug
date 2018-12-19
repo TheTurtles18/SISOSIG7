@@ -28,12 +28,8 @@ head
           li#prof.nav-item
             a.prof(href='api/userprofile') My Profile
           li#logout.nav-item
-            a.logout(href='#', onclick='logout()') Logout
+            a.logout(href='/api', onclick='logout()') Logout
 
-
-
-
-                
     
     block scripts 
       
@@ -44,8 +40,6 @@ head
           console.log(cvalue);
           document.cookie = cname + "=" + cvalue + ";path=/";
         }        
-
-
 
 
         function getCookie(cname) {
@@ -107,7 +101,7 @@ head
             console.log('Successful login for: ' + response.name);
             document.getElementById('profile').innerHTML =
               'Thanks for logging in, ' + response.name + '!';
-            document.getElementById('theId').innerHTML = response.id;
+            //document.getElementById('theId').innerHTML = response.id;
             setCookie("newCookie", response.id);
           });
         }
