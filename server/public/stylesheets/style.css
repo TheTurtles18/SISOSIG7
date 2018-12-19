@@ -1,3 +1,7 @@
+#likeDislike{
+	display:inline-block;
+	padding:10px;
+}
 body {
   padding: 50px;
 }
