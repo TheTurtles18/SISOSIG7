@@ -25,6 +25,10 @@ a {
   margin-top: 10px;
 }
 
+#createPost{
+	display: none;
+}
+
 .resize{
 	max-width:90%;
 	width: 100%;
