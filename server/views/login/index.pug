@@ -60,6 +60,7 @@ block scripts
         //THIS IS WHERE WE RE-DIRECT THE CLIENT TO THE FEED
 
         testAPI();
+        window.location.href ='/userprofile';
         console.log(response);
         setElements(true);
       } else {
@@ -93,7 +94,7 @@ block scripts
         console.log("DID MA THING");
         xml.send();
 
-        
+
 
         console.log('Successful login for: ' + response.name);
         document.getElementById('profile').innerHTML =
