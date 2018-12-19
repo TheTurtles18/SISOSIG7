@@ -2,7 +2,7 @@ var base = process.env.PwD;
 var Post = require('../../models/post');
 var fs = require('fs');
 
-var createPost = function (req, res) {
+var createPhoto = function (req, res) {
     var post = new Post(req.file);
 
     post.save(function (err, post){
@@ -12,6 +12,17 @@ var createPost = function (req, res) {
         res.send(post.path);
     });
     
+};
+
+var createPost = function (req, res) {
+    var post = new Post(req.body);
+
+    post.save(function (err, post){
+        if(err) {res.send(500,err);}
+        //post.img.data = req.body
+        //post.img.contentType = 'image/png';
+        res.send(post.path);
+    });
 };
 
 var getPosts = function(req, res) {
