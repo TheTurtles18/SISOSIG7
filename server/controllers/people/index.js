@@ -35,6 +35,14 @@ var getPerson = function(req, res) {
     });
 }
 
+var findPerson = function(req, res){
+    console.log("Finding a person");
+    Person.findOne({FbId: req.params.id}, function(err, person){
+        console.log("looking for a person");
+        if(err){res.send(500, err);}
+        res.json(200, person);
+    });
+}
 
 
 
@@ -42,5 +50,6 @@ var getPerson = function(req, res) {
 module.exports = {
     createPerson,
     getPeople,
-    getPerson
+    getPerson, 
+    findPerson
 }

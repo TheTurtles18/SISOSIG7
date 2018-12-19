@@ -15,11 +15,7 @@ router.get('/posts', posts.getPosts);
 router.get('/post/:id', posts.getPost);
 router.post('/post/create', posts.createPost);
 
-router.get('/fblogged', function(req, res){
-  
-  res.render('userprofile/index', {name: "Joshua The Cohen"});
-});
-
+router.get('/fblogged/:id', people.findPerson);
 
 router.post('/login', people.createPerson);
  

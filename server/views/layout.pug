@@ -24,10 +24,40 @@ head
                 a.nav-link(href='#') My Profile
               li.nav-item#logout
                 a(href='#' onclick="logout()") Logout
+              li.nav-item#theId
+                
     
     block scripts 
       
       script.
+        console.log("Layout ")
+        function setCookie(cname, cvalue) {
+          console.log("Creating a cookie with value of ");
+          console.log(cvalue);
+          document.cookie = cname + "=" + cvalue + ";path=/";
+        }        
+
+
+
+
+        function getCookie(cname) {
+          console.log("Function get cookie");
+          var name = cname + "=";
+          var decodedCookie = decodeURIComponent(document.cookie);
+          var ca = decodedCookie.split(';');
+          for(var i = 0; i <ca.length; i++) {
+            var c = ca[i];
+            while (c.charAt(0) == ' ') {
+              c = c.substring(1);
+            }
+            if (c.indexOf(name) == 0) {
+            return c.substring(name.length, c.length);
+            }
+            }
+          return "";
+          }
+
+
         window.fbAsyncInit = function() {
         FB.init({
         appId            : '530954160705254',
@@ -69,8 +99,11 @@ head
             console.log('Successful login for: ' + response.name);
             document.getElementById('profile').innerHTML =
               'Thanks for logging in, ' + response.name + '!';
+            document.getElementById('theId').innerHTML = response.id;
+            setCookie("newCookie", response.id);
           });
         }
+
 
         function checkLoginState() {
         // console.log("Check login state");
@@ -85,10 +118,12 @@ head
             document.getElementById('profile').style.display = 'block';
             document.getElementById('logout').style.display = 'block';
             document.getElementById('fb-btn').style.display = 'none';
+            document.getElementById('theId').style.display = 'none';
           } else {
             document.getElementById('profile').style.display = 'none';
             document.getElementById('logout').style.display = 'none';
             document.getElementById('fb-btn').style.display = 'block';
+            document.getElementById('theId').style.display = 'none';
           }
         }
 
