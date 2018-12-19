@@ -104,3 +104,7 @@ a {
 	width:100%!important;
 	height:auto;
 }
+
+h3.my_posts{
+	align-self: center;
+}

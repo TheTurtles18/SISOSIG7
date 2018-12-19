@@ -9,6 +9,25 @@ block append content
     h4(ng-bind='email')
 
        
+    div
+      #miniHeader
+      h4 {{firstname}} 
+      h4(ng-bind='lastname')
+      h4(ng-bind='email')
+    hr
+    h3 My Posts
+    div(ng-repeat='post in postArray' ng-if='post.FBid == getCookie("officialId")')
+      .row
+      .card.col-md-3(ng-repeat='post in postArray')
+        img.card-img-top(src='http://placehold.it/350x150')
+        .card-block
+          h3.card-title {{post.caption}}
+          h5 {{post.createdAt | date: 'medium'}}
+          #likeDislike
+            h6.card-shaves {{post.shave_votes}}
+            a.btn.like(ng-click="updatePost(post._id, 'shave')") Shave
+            h6.card-grows {{post.grow_votes}}
+            a.btn.dislike(ng-click="updatePost(post._id, 'grow')") Grow
 
     script.
       console.log("cookie kevin");
@@ -68,3 +87,17 @@ block append content
         
         console.log("App Controller");
         
+         });
+
+        $scope.postArray = [];
+        $scope.postLoader = function() {
+          console.log("Josh test");
+          $http.get('/api/posts/').then(function(response) {
+            $scope.postArray = response.data
+            console.log($scope.postArray.length);
+          }).catch(function(err) {
+            $log.debug(err);
+          });
+        }
+        $scope.postLoader();  
+      });

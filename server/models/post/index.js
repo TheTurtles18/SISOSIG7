@@ -4,7 +4,8 @@ var Schema = mongoose.Schema;
 mongoose.Promise = global.Promise;
 
 var PostSchema = new Schema ({
-    user: String,
+    FBid: String,
+    user_firstname: String,
     caption: String,
     createdAt: {type: Date, default: Date.now()},
     shave_votes: {type: Number, default: 0},
