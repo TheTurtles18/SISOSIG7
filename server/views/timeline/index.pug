@@ -2,7 +2,8 @@ extends ../layout
 
 //- 
 block append navigation
-  hr
+  br 
+  br
   li.nav-item#createPost
     form(enctype='multipart/form-data', action='/api/upload', method = "POST")
       input#image-file(type='file' name='file')
@@ -14,7 +15,12 @@ block append navigation
 
 
 block append content
+<<<<<<< Updated upstream
   h2.page-header Stubble Feed
+=======
+  hr
+  h2.page-header Timeline
+>>>>>>> Stashed changes
   div(div='div' ng-app='main-app' ng-controller='postController')
     .row
       .card.col-md-3(ng-repeat='post in postArray')
