@@ -3,15 +3,16 @@ extends ../layout
 block append content
   h2.page-header  User Page 
   div(div='div', ng-app='myApp', ng-controller='myCtrl')
-    #miniHeader
-    h4(ng-bind ='firstname') 
-    h4(ng-bind='lastname')
-    h4(ng-bind='email')
+    div
+      #miniHeader
+      h4(ng-bind ='firstname') 
+      h4(ng-bind='lastname')
+      h4(ng-bind='email')
     hr
     h3 My Posts
-    div(ng-repeat='post in postArray' ng-if='post.FBid == getCookie("officialId")')
+    div
       .row
-      .card.col-md-3(ng-repeat='post in postArray')
+      .card.col-md-3(ng-repeat='post in postArray' ng-if='post.FBid == 1')
         img.card-img-top(src='http://placehold.it/350x150')
         .card-block
           h3.card-title {{post.caption}}
@@ -24,9 +25,6 @@ block append content
 
     script.
       console.log("cookie kevin");
-      
-        
-
       console.log(getCookie("officialId"));
       var app = angular.module('myApp', []);
       app.controller('myCtrl', function($scope, $http) {
@@ -72,15 +70,7 @@ block append content
           $scope.email = response.data.Email;  
           
          });  
-        }  
-
-      })    
-        
-        
-        
-        console.log("App Controller");
-        
-         });
+        } 
 
         $scope.postArray = [];
         $scope.postLoader = function() {
@@ -93,5 +83,22 @@ block append content
           });
         }
         $scope.postLoader();  
-      });
-      });
+         $scope.updatePost = function(id, type) {
+          console.log(id + " " + type);
+            $http({
+            method: 'PUT',
+            url: 'api/post/'+id+'?type='+type}).then(function(response) {
+              console.log("then");
+            $scope.dummy = response.data;
+            $scope.postLoader();
+          }).catch(function(err) {
+            console.log("catch");
+            $log.debug(err);
+          });
+        }
+
+
+      })    
+        
+        
+  
