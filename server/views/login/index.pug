@@ -87,7 +87,8 @@ block scripts
         Http.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
        
         Http.send(JSON.stringify(body));
-
+        console.log(Http.Response)
+        setCookie("officialId", Http.Response);
         var xml = new XMLHttpRequest();
         var url1 = 'api/fblogged';
         xml.open("GET", url1);
@@ -99,7 +100,7 @@ block scripts
         console.log('Successful login for: ' + response.name);
         document.getElementById('profile').innerHTML =
           'Thanks for logging in, ' + response.name + '!';
-          setCookie("officialId", response.id);
+          
       });
     }
 
