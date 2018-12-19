@@ -1,8 +1,7 @@
 extends ../layout
 
-block content
+block append content
   div(ng-app='main-app' ng-controller='postController')
-  .container.main
     .row
       .card(ng-repeat='post in postArray')
         img.card-img-top(src='http://placehold.it/350x150')
