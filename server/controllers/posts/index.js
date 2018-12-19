@@ -74,6 +74,7 @@ var uploadPost = function (req, res){
 }
 
 var getPicture = function (req, res){
+    console.log("TESTHERE");
     gfs.files.findOne({ filename: req.params.filename }, (err, file) => {
         if (!file || file.length === 0){
             return res.status(404).json({
