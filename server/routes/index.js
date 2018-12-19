@@ -58,6 +58,8 @@ router.get('/testImage', function(req, res){
 
 var body = {}
 
+router.post('/newUser', people.createPerson);
+
 router.get('/user', function(req, res, next) {
   console.log("WHAT THE FUCK IS HAPPENING");  
   //console.log(req.query.first);
