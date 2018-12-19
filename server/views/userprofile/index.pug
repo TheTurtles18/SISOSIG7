@@ -11,6 +11,7 @@ block append content
     hr
     h3 My Posts
     div
+
       .row
         .card.col-md-3(ng-repeat='post in postArray', ng-if='post.userId == 1')
           img.card-img-top(src='http://placehold.it/350x150')
@@ -18,13 +19,9 @@ block append content
             h3.card-title {{post.caption}}
             h5 {{post.createdAt | date: &apos;medium&apos;}}
             #likeDislike
-              h6.card-shaves {{post.shave_votes}}
-              .btn.like(ng-click="updatePost(post._id, 'shave')") Shave 
+              h6.card-shaves {{post.shave_votes}} Shaves 
             #likeDislike
-              h6.card-grows {{post.grow_votes}}
-              .btn.dislike(ng-click="updatePost(post._id, 'grow')") Grow
-
-
+              h6.card-grows {{post.grow_votes}} Grows
 
     script.
       console.log("cookie kevin");
