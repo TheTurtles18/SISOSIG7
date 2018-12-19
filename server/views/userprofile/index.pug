@@ -9,20 +9,6 @@ block append content
       h4(ng-bind='lastname')
       h4(ng-bind='email')
 
-    h3.my_posts My Posts
-    div(ng-repeat='post in postArray' ng-if='post.FBid == getCookie("officialId")')
-      .row
-      .card(ng-repeat='post in postArray' ng-if='post.FBid == 1')
-        img.card-img-top(src='http://placehold.it/350x150')
-        .card-block
-          
-          h3.card-title {{post.caption}}
-          h5 {{post.createdAt | date: 'medium'}}
-          #likeDislike
-            h6.card-shaves Shaves {{post.shave_votes}}
-            h6.card-grows Grows {{post.grow_votes}}
-
-    
     script.
       console.log("cookie kevin");
       console.log(getCookie("officialId"));

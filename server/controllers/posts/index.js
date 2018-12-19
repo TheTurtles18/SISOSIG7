@@ -52,13 +52,17 @@ var uploadPost = function (req, res){
 };
 */
 var TESTies = 123523;
+
+
+
 var uploadPost = function(req, res){
+    
+    
     var gfs = Grid(conn.db);
-    console.log("FIND THE PATH");
-    console.log(req);
+   
     var writestream = gfs.createWriteStream({
         filename: 'beardPic.jpg',
-        metadata: 123
+        metadata: 2171102669578178
     })
     
     fs.createReadStream(imagePath).pipe(writestream);
@@ -125,7 +129,6 @@ var updatePost = function(req, res){
 
     Post.findById(req.params.id, function(err, post){
         if(err) {res.send(500, err);}
-
         if (req.query.type == 'shave') {
             post.shave_votes += 1;
         } else {

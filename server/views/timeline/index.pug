@@ -20,7 +20,6 @@ block append content
       .card.col-md-3(ng-repeat='post in postArray')
         img.card-img-top(src='http://placehold.it/350x150')
         .card-block
-          
           h3.card-title {{post.caption}}
           h5 {{post.createdAt | date: 'medium'}}
           #likeDislike
@@ -43,23 +42,21 @@ block append content
       } 
       $scope.postLoader();
 
-      $scope.updatePost = function(id, type) {
-        console.log(id + " " + type);
-        $http({
-          method: 'PUT',
-          url: 'api/post/'+id+'?type='+type}).then(function(response) {
-            console.log("then");
-          $scope.dummy = response.data;
-          $scope.postLoader();
-        }).catch(function(err) {
-          console.log("catch");
-          $log.debug(err);
-        });
-      }
-    });
+    $scope.updatePost = function(id, type) {
+      console.log(id + " " + type);
+      $http({
+        method: 'PUT',
+        url: 'api/post/'+id+'?type='+type}).then(function(response) {
+          console.log("then");
+        $scope.dummy = response.data;
+        $scope.postLoader();
+      }).catch(function(err) {
+        console.log("catch");
+        $log.debug(err);
+      });
+      
 
-    app.controller("uploadController", function($scope, $http, $log) {
-      $scope.caption = '';
+    }
     });
 
 
