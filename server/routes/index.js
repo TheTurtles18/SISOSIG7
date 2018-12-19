@@ -10,10 +10,7 @@ var base = process.env.PwD;
 var posts = require('../controllers/posts');
 var people = require('../controllers/people');
 
-router.post('/upload/images', upload.single(), function(req, res){
-  console.log(req.body);
-  res.send("eq");
-});
+router.post('/upload/images', posts.uploadPost);
 router.get('/upload/images', posts.downloadPicture);
 
 router.get('/posts', posts.getPosts);
