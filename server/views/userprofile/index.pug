@@ -22,7 +22,7 @@ block append content
         console.log("App Controller");
         $http({
           method : "GET",
-          url : 'fblogged/'+getCookie("officialId")
+          url : 'api/fblogged/'+getCookie("officialId")
         })
         .then(function(response) {
           $scope.firstname = response.data.First;

@@ -31,7 +31,9 @@ block content
       $scope.postArray = [];
       $scope.postLoader = function() {
         $http.get('/api/posts/').then(function(response) {
-          console.log("Here's the response!" + response.data[0].caption);
+          console.log("Response full");
+          console.log(response);
+          console.log("Here's the response!" + response.data[0].grow_votes);
           $scope.postArray = response.data
         }).catch(function(err) {
           $log.debug(err);
