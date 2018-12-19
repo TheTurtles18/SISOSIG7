@@ -17,16 +17,14 @@ router.post('/upload/images', upload.single(), function(req, res){
 router.get('/upload/images', posts.downloadPicture);
 
 router.get('/posts', posts.getPosts);
-
 router.get('/post/:id', posts.getPost);
 router.post('/post/create', posts.createPost);
+router.put('/post/:id', posts.updatePost);
 
 router.get('/fblogged/:id', people.findPerson);
 
 router.post('/login', people.createPerson);
- 
 router.get('/u/:id', people.getPerson);
-
 
 router.get('/userprofile', function(req, res){
   res.render('userprofile/index');
@@ -50,7 +48,7 @@ router.get('/testImage', function(req, res){
      res.render('login/index');
    });
 
-   // Get Timeline Pa'ge
+   // Get Timeline Page
    router.get('/timeline', function(req, res){
     res.render('timeline');
   })

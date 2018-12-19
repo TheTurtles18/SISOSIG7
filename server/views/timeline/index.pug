@@ -13,35 +13,45 @@ block append navigation
 
 block content
   div(ng-app='main-app' ng-controller='postController')
-    .container.main
-      .row
-        .card(ng-repeat='post in postArray')
-            img.card-img-top(src='http://placehold.it/350x150')
-            .card-block
-                h3.card-title {{post.caption}}
-                h5 {{post.createdAt | date: 'medium'}}
-                #likeDislike
-                    h6.card-shaves {{post.shave_votes}}
-                    a.btn.like(href='#' ng-click='updatePost({{post._id}}, 0)') Shave
-                    h6.card-grows {{post.grow_votes}}
-                    a.btn.dislike(href='#' ng-click='updatePost({{post._id}}, 1)') Grow
+  .container.main
+    .row
+      .card(ng-repeat='post in postArray')
+        img.card-img-top(src='http://placehold.it/350x150')
+        .card-block
+          h3.card-title {{post.caption}}
+          h5 {{post.createdAt | date: 'medium'}}
+          #likeDislike
+            h6.card-shaves {{post.shave_votes}}
+            a.btn.like(href='#' ng-click="updatePost({{post._id}}, 'shave')") Shave
+            h6.card-grows {{post.grow_votes}}
+            a.btn.dislike(href='#' ng-click="updatePost({{post._id}}, 'grow')") Grow
+  script.
+    var app = angular.module("main-app", []);
+    app.controller("postController", function($scope, $http, $log) {
+      $scope.postArray = [];
+      $scope.postLoader = function() {
+        $http.get('/api/posts/').then(function(response) {
+          console.log("Here's the response!" + response.data[0].caption);
+          $scope.postArray = response.data
+        }).catch(function(err) {
+          $log.debug(err);
+        });
+    }
+    $scope.postLoader();
 
-    script.
-      var app = angular.module("main-app", []);
-      app.controller("postController", function($scope, $http) {
-        $scope.postArray = [];
-        $scope.postLoader = function() {
-          $http.get('posts/').then(function(response) {
-            $scope.postArray = response.data
-          })
-        }
-        $scope.postLoader();
-        
-        $scope.updatePost = function(id, type) {
-          var data = $.param({type: type});
-          $http.put('./post/'+id+'?'+data).then(function(response) {
-            $scope.dummy = response.data;
-          });
-        }
+    $scope.updatePost = function(id, type) {
+      console.log(id + " " + type);
+      $http({
+        method: 'PUT',
+        url: './post/'+id,
+        data: type}).then(function(response) {
+          console.log("then");
+        $scope.dummy = response.data;
+      }).catch(function(err) {
+        console.log("catch");
+        $log.debug(err);
       });
+    }
+    });
+
 
