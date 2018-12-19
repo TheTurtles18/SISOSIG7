@@ -17,6 +17,7 @@ router.get('/fblogged/:id', people.findPerson);
 
 router.post('/login', people.createPerson);
 router.get('/u/:id', people.getPerson);
+router.put('/updater/:id', people.updatePerson);
 
 router.get('/userprofile', function(req, res){
   res.render('userprofile/index');
