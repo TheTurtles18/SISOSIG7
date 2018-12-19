@@ -7,13 +7,6 @@ block append content
     h4(ng-bind ='firstname') 
     h4(ng-bind='lastname')
     h4(ng-bind='email')
-
-       
-    div
-      #miniHeader
-      h4 {{firstname}} 
-      h4(ng-bind='lastname')
-      h4(ng-bind='email')
     hr
     h3 My Posts
     div(ng-repeat='post in postArray' ng-if='post.FBid == getCookie("officialId")')
@@ -100,4 +93,5 @@ block append content
           });
         }
         $scope.postLoader();  
+      });
       });
