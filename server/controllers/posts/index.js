@@ -2,92 +2,96 @@ var base = process.env.PwD;
 var Post = require('../../models/post');
 var fs = require('fs');
 
-var bodyParser = require('body-parser');
-//var fs = require('fs');
-var mongoose = require('mongoose');
-var Schema = mongoose.Schema;
-
-var conn = mongoose.connection;
+var app = require('../../app.js');
 var path = require('path');
+var crypto = require('crypto');
+var mongoose = require('mongoose');
+var multer = require('multer');
 var GridFsStorage = require('multer-gridfs-storage');
 var Grid = require('gridfs-stream');
-var port = 3000;
 
-var imagePath = path.join(__dirname, '../../uploads/beardPic.jpg');
 
-Grid.mongo = mongoose.mongo;
+//Mongo URI
+var mongoURI = 'mongodb://localhost:27017/mean_app_db';
 
-/*
-var gfs = Grid(conn.db);
+//var conn = mongoose.createConnection(mongoURI);
+var conn = mongoose.connection;
+//Grid.mongo = mongoose.mongo;
 
-var storage = GridFsStorage({
-  gfs : gfs,
+function getCookie(cname) {
+    console.log("Function get cookie");
+    var name = cname + "=";
+    var decodedCookie = decodeURIComponent(document.cookie);
+    var ca = decodedCookie.split(';');
+    for(var i = 0; i <ca.length; i++) {
+      var c = ca[i];
+      while (c.charAt(0) == ' ') {
+        c = c.substring(1);
+      }
+      if (c.indexOf(name) == 0) {
+      return c.substring(name.length, c.length);
+      }
+      }
+    return "";
+    }
 
-  filename: (req, file, cb) => {
-      var date = Date.now();
-      // The way you want to store your file in database
-      cb(null, file.fieldname + '-' + date + '.'); 
-  },
-  
-  // Additional Meta-data that you want to store
-  metadata: function(req, file, cb) {
-      cb(null, { originalname: file.originalname });
-  },
-  root: 'ctFiles' // Root collection name
-});
 
-var upload = multer({
-  storage: storage
-}).single('file');
+//init stream
+var gfs;
+
+conn.once('open', () => {
+    gfs = Grid(conn.db, mongoose.mongo);
+    gfs.collection('uploads');  //<- specifies name of collection, would replace 'fs' in fs.files and fs.chunks
+})
+
+//create storage engine
+var storage = new GridFsStorage({
+    url: mongoURI,
+    file: (req, file) => {
+      return new Promise((resolve, reject) => {
+        crypto.randomBytes(16, (err, buf) => {
+          if (err) {
+            return reject(err);
+          }
+          const filename = buf.toString('hex') + path.extname(file.originalname);
+          const fileInfo = {
+            filename: filename,
+            bucketName: 'uploads',
+            metadata: 1420196678110397
+          };
+          resolve(fileInfo);
+        });
+      });
+    }
+  });
+  const upload = multer({ storage });
+
 
 var uploadPost = function (req, res){
-    res.send("This worked");
-    upload(req,res, (err) => {
-      if(err){
-           res.json({error_code:1,err_desc:err});
-           return;
-      }
-      res.json({error_code:0, error_desc: null, file_uploaded: true});
-    });
-};
-*/
-var TESTies = 123523;
-
-
-
-var uploadPost = function(req, res){
-    
-    
-    var gfs = Grid(conn.db);
-   
-    var writestream = gfs.createWriteStream({
-        filename: 'beardPic.jpg',
-        metadata: 2171102669578178
-    })
-    
-    fs.createReadStream(imagePath).pipe(writestream);
-
-    writestream.on('close', function(file){
-        res.send(file.metadata + 'Written to DB');
-    })
-    //Get request sending us back to timeline
-};
-
-var downloadPicture = function(req, res){
-    var gfs = Grid(conn.db);
-
-    var fs_write_stream = fs.createWriteStream(path.join(__dirname, '../../uploads/extractedBeardPic.jpg'));
-
-    var readstream = gfs.createReadStream({
-        filename: 'beardPic.jpg'
-    });
-
-    readstream.pipe(fs_write_stream);
-    fs_write_stream.on('close', function(){
-
-    });
+    upload.single('file');
+//    res.json({file: req.file});
+    res.redirect('/api/timeline');
 }
 
+var getPicture = function (req, res){
+    gfs.files.findOne({ filename: req.params.filename }, (err, file) => {
+        if (!file || file.length === 0){
+            return res.status(404).json({
+                err: 'No File Exists'
+            });
+        }
+        if (file.contentType === 'image/jpeg' || file.contentType === 'img/png'){
+            const readstream = gfs.createReadStream(file.filename);
+            readstream.pipe(res);
+        } else {
+            res.status(404).json({
+                err: 'Not an image'
+            })
+        }
+    })
+}
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 var createPhoto = function (req, res) {
     var post = new Post(req.file);
 
@@ -147,7 +151,8 @@ module.exports = {
     createPost,
     getPosts,
     getPost,
+    updatePost,
     uploadPost,
-    downloadPicture,
-    updatePost
+    upload,
+    getPicture
 }
