@@ -1,5 +1,9 @@
 extends ../layout
 
+<<<<<<< HEAD
+block append content
+  h2.page-header Timeline
+=======
 block append navigation
   li.nav-item#createPost
     form(enctype='multipart/form-data', action='/api/upload/images', method = "POST")
@@ -12,6 +16,7 @@ block append navigation
 
 
 block content
+>>>>>>> master
   div(ng-app='main-app' ng-controller='postController')
   .container.main
     .row
