@@ -1,5 +1,4 @@
 extends ../layout
-
   
 block append navigation
   hr
@@ -17,16 +16,18 @@ block append content
   h2.page-header Timeline
   div(div='div' ng-app='main-app' ng-controller='postController')
     .row
-      .card(ng-repeat='post in postArray')
+      .card.col-md-3(ng-repeat='post in postArray')
         img.card-img-top(src='http://placehold.it/350x150')
         .card-block
           h3.card-title {{post.caption}}
           h5 {{post.createdAt | date: 'medium'}}
           #likeDislike
             h6.card-shaves {{post.shave_votes}}
-            button(ng-click="updatePost(post._id, 'shave')") Shave
+            a.btn.like(ng-click="updatePost(post._id, 'shave')") Shave
             h6.card-grows {{post.grow_votes}}
-            button.dislike(ng-click="updatePost(post._id, 'grow')") Grow
+            a.btn.dislike(ng-click="updatePost(post._id, 'grow')") Grow
+  
+  // Javascript to Define Controller
   script.
     var app = angular.module("main-app", []);
     app.controller("postController", function($scope, $http, $log) {
@@ -34,9 +35,6 @@ block append content
       $scope.postArray = [];
       $scope.postLoader = function() {
         $http.get('/api/posts/').then(function(response) {
-          console.log("Response full");
-          console.log(response);
-          console.log("Here's the response!" + response.data[0].grow_votes);
           $scope.postArray = response.data
         }).catch(function(err) {
           $log.debug(err);

@@ -129,17 +129,13 @@ var updatePost = function(req, res){
 
     Post.findById(req.params.id, function(err, post){
         if(err) {res.send(500, err);}
-        
         if (req.query.type == 'shave') {
-            console.log("add to shave");
             post.shave_votes += 1;
         } else {
             post.grow_votes += 1;
         }
-
         post.save(function(err, post){
             if(err) {res.send(500, err);}
-            
             res.json(200, post);
         })
 

@@ -93,3 +93,14 @@ a {
 .content{
 	margin:50px;
 }
+
+.card {
+	padding: 10px;
+	margin: 30px;
+}
+
+.card-img-top{
+	align-items: center;
+	width:100%!important;
+	height:auto;
+}
