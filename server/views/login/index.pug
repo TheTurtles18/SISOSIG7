@@ -183,10 +183,21 @@ block content
             //header: {'content-type': 'application/json'}
           })
           .then(function(response) {
-           console.log(response);
-  
-            
-          
+            console.log(response.data._id);
+              setCookie("mongoCookie", response.data._id);
+              window.location.href ='api/userprofile';
+              //Josh's attempt to reformat the FbId DONT'T TOUCH
+                //-  $http({
+                //-       method: "PUT",
+                //-       url: 'api/updater/'+response.data._id, 
+                //-       data: $scope.body
+
+                //-     }).then(function(res){
+                //-       console.log("Updated the FbID to the mongo ID");
+                //-     }).catch(function(err){
+                //-      $log.debug(err);
+                //-    });   
+                
          }).catch(function(err){
            $log.debug(err);
          });

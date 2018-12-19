@@ -4,7 +4,7 @@ block append content
   h2.page-header  User Page 
   div(div='div', ng-app='myApp', ng-controller='myCtrl')
     #miniHeader
-    h4 {{firstname}} 
+    h4(ng-bind ='firstname') 
     h4(ng-bind='lastname')
     h4(ng-bind='email')
 
@@ -12,17 +12,45 @@ block append content
 
     script.
       console.log("cookie kevin");
+      
+        
+
       console.log(getCookie("officialId"));
       var app = angular.module('myApp', []);
       app.controller('myCtrl', function($scope, $http) {
         //- console.log("hello user Id");
         //- console.log(getCookie("newCookie"));
-        console.log("App Controller");
-        $http({
+        console.log("Looking for cookies");
+        
+        if(getCookie("mongoCookie")){
+          console.log("Mongo cookie");
+          cookieID = getCookie("mongoCookie");
+          console.log(cookieID);
+          $http({
           method : "GET",
-          url : 'api/fblogged/'+getCookie("officialId")
-        })
-        .then(function(response) {
+          url : 'api/u/'+cookieID
+          })
+          .then(function(response) {
+          $scope.firstname = response.data.First;
+          console.log("Test body");
+          console.log(response);
+          console.log(response.data.First);
+          $scope.lastname = response.data.Last;  
+          $scope.username = response.data.Username;  
+          $scope.email = response.data.Email;  
+          
+         });
+        }
+       
+        else {
+          console.log("Else statement - Not a mongo cookie");
+          var cookieID = getCookie("officialId")
+          console.log(cookieID);
+          $http({
+          method : "GET",
+          url : 'api/fblogged/'+cookieID
+          })
+          .then(function(response) {
           $scope.firstname = response.data.First;
           console.log("Test body");
           console.log(response);
@@ -32,4 +60,11 @@ block append content
           $scope.email = response.data.Email;  
           
          });  
-      });
+        }  
+
+      })    
+        
+        
+        
+        console.log("App Controller");
+        

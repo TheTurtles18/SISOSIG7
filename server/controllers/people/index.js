@@ -45,6 +45,24 @@ var findPerson = function(req, res){
     });
 }
 
+var updatePerson = function(req, res){
+
+    Person.findById(req.params.id, function(err, person){
+        if(err) {res.send(500, err);}
+        if(req.body.First){ person.First = req.body.First }
+        if(req.body.Last){ person.Last = req.body.Last }
+        if(req.body.Username){ person.Username = req.body.Username }
+        if(req.body.Password){ person.Password = req.body.Password }
+        if(req.body.Email){ person.Email = req.body.Email }
+        if(req.body.FbId){ person.FbId = req.body.FbId }
+        person.save(function(err, person){
+            if(err) {res.send(500, err);}
+            res.json(200, person);
+        })
+
+    })
+};
+
 
 
 
@@ -52,5 +70,6 @@ module.exports = {
     createPerson,
     getPeople,
     getPerson, 
-    findPerson
+    findPerson, 
+    updatePerson
 }
