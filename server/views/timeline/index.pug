@@ -1,10 +1,8 @@
 extends ../layout
 
-<<<<<<< HEAD
-block append content
-  h2.page-header Timeline
-=======
+  
 block append navigation
+  hr
   li.nav-item#createPost
     form(enctype='multipart/form-data', action='/api/upload/images', method = "POST")
       input#image-file(type='file')
@@ -15,14 +13,14 @@ block append navigation
       button.btn.btn-primary(type='submit', value='download', ng-click='submit()') Submit
 
 
-block content
->>>>>>> master
-  div(ng-app='main-app' ng-controller='postController')
-  .container.main
+block append content
+  h2.page-header Timeline
+  div(div='div' ng-app='main-app' ng-controller='postController')
     .row
       .card(ng-repeat='post in postArray')
         img.card-img-top(src='http://placehold.it/350x150')
         .card-block
+          
           h3.card-title {{post.caption}}
           h5 {{post.createdAt | date: 'medium'}}
           #likeDislike
@@ -33,6 +31,7 @@ block content
   script.
     var app = angular.module("main-app", []);
     app.controller("postController", function($scope, $http, $log) {
+      $scope.count = 0;
       $scope.postArray = [];
       $scope.postLoader = function() {
         $http.get('/api/posts/').then(function(response) {
