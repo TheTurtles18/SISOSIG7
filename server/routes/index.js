@@ -13,12 +13,9 @@ var people = require('../controllers/people');
 router.get('/posts', posts.getPosts);
 router.get('/post/:id', posts.getPost);
 router.post('/post/create', posts.createPost);
-<<<<<<< HEAD
 router.put('/post/:id', posts.updatePost);
-=======
 
 router.get('/fblogged/:id', people.findPerson);
->>>>>>> 1f58026ac30d3ce6c3b395899c98dae5a7b1fc4c
 
 router.post('/login', people.createPerson);
 router.get('/u/:id', people.getPerson);
@@ -45,7 +42,7 @@ router.get('/testImage', function(req, res){
      res.render('login/index');
    });
 
-   // Get Timeline Pa'ge
+   // Get Timeline Page
    router.get('/timeline', function(req, res){
     res.render('timeline');
   })
