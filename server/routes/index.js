@@ -1,17 +1,12 @@
 var express = require('express');
 var router = express.Router();
 
-var multer = require('multer');
-var upload = multer({dest: 'uploads/'});
-
-//const data = require('../controller');
-
 var base = process.env.PwD;
 var posts = require('../controllers/posts');
 var people = require('../controllers/people');
 
-router.post('/upload/images', posts.uploadPost);
-router.get('/upload/images', posts.downloadPicture);
+router.post('/upload', posts.upload.single('file'), posts.uploadPost);
+router.get('/images/:filename', posts.getPicture);
 
 router.get('/posts', posts.getPosts);
 router.get('/post/:id', posts.getPost);
@@ -29,11 +24,6 @@ router.get('/userprofile', function(req, res){
 
 
 var Product = require('../models/product');
-//POSTING A PITCURE 
-router.post('/p', upload.single(), function(req, res){
-  console.log(req.file.path);
-  res.send(req.file);
-});
 
 
 router.get('/testImage', function(req, res){

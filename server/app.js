@@ -6,6 +6,9 @@ var logger = require('morgan');
 var mongoose = require('mongoose');
 var config = require('./config');
 
+var bodyParser = require('body-parser');
+var methodOverride = require('method-override');
+
 var routes = require('./routes');
 
 var indexRouter = require('./routes/index');
@@ -25,6 +28,8 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(bodyParser.json());
+app.use(methodOverride('_method'));
 
  //app.use('/', indexRouter);
 // app.use('/users', usersRouter);
