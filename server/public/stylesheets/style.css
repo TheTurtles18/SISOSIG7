@@ -23,6 +23,13 @@ body {
 	background-color:#606284!important;
 	border:none;
 }
+
+#createPost {
+	text-align:center;
+	display:block;
+}
+
+
  /* =========== NAV STYLING ===========  */
 
 
@@ -39,10 +46,9 @@ body {
 }
 
 .prof:hover, .logout:hover{
-	color:#BAC9D9!important;
+	color:#ececf9!important;
 	text-decoration:none;
 }
-
 
 .navbar{
     position:absolute;
@@ -58,7 +64,7 @@ body {
 }
 
 .navbar-brand:hover{
-	color:#BAC9D9!important;
+	color:#ececf9!important;
 	text-decoration:none;
 }
 
