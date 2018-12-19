@@ -3,13 +3,24 @@ extends ../layout
 block append content
   h2.page-header  User Page 
   div(div='div', ng-app='myApp', ng-controller='myCtrl')
-    #miniHeader
-    h4 {{firstname}} 
-    h4(ng-bind='lastname')
-    h4(ng-bind='email')
+    div
+      #miniHeader
+      h4 {{firstname}} 
+      h4(ng-bind='lastname')
+      h4(ng-bind='email')
 
-       
-            
+    h3.my_posts My Posts
+    div(ng-repeat='post in postArray' ng-if='post.FBid == getCookie("officialId")')
+      .row
+      .card(ng-repeat='post in postArray' ng-if='post.FBid == 1')
+        img.card-img-top(src='http://placehold.it/350x150')
+        .card-block
+          
+          h3.card-title {{post.caption}}
+          h5 {{post.createdAt | date: 'medium'}}
+          #likeDislike
+            h6.card-shaves Shaves {{post.shave_votes}}
+            h6.card-grows Grows {{post.grow_votes}}
 
     
     script.
@@ -33,5 +44,17 @@ block append content
           $scope.username = response.data.Username;  
           $scope.email = response.data.Email;  
           
-         });  
+         });
+
+        $scope.postArray = [];
+        $scope.postLoader = function() {
+          console.log("Josh test");
+          $http.get('/api/posts/').then(function(response) {
+            $scope.postArray = response.data
+            console.log($scope.postArray.length);
+          }).catch(function(err) {
+            $log.debug(err);
+          });
+        }
+        $scope.postLoader();  
       });

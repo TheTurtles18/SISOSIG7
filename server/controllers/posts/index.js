@@ -126,8 +126,6 @@ var updatePost = function(req, res){
     Post.findById(req.params.id, function(err, post){
         if(err) {res.send(500, err);}
 
-        console.log("We're here!");
-
         if (req.query.type == 'shave') {
             post.shave_votes += 1;
         } else {

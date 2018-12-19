@@ -2,10 +2,11 @@ extends ../layout
   
 block append navigation
   hr
-  li.nav-item#createPost
+  li.nav-item#createPost(ng-app='main-app' ng-controller='uploadController')
     form(enctype='multipart/form-data', action='/api/upload/images', method = "POST")
       input#image-file(type='file')
-      //input#caption(type='text')
+      input#caption(type='text' ng-model='caption' placeholder='Caption')
+      h5 {{caption}}
       button.btn.btn-primary(type='submit', value='submit', ng-click='submit()') Submit
   //  li.nav-item#download
     form(enctype='multipart/form-data', action='/api/upload/images', method="GET", target='_blank')
@@ -32,7 +33,6 @@ block append content
   script.
     var app = angular.module("main-app", []);
     app.controller("postController", function($scope, $http, $log) {
-      $scope.count = 0;
       $scope.postArray = [];
       $scope.postLoader = function() {
         $http.get('/api/posts/').then(function(response) {
@@ -40,22 +40,26 @@ block append content
         }).catch(function(err) {
           $log.debug(err);
         });
-    }
-    $scope.postLoader();
+      } 
+      $scope.postLoader();
 
-    $scope.updatePost = function(id, type) {
-      console.log(id + " " + type);
-      $http({
-        method: 'PUT',
-        url: 'api/post/'+id+'?type='+type}).then(function(response) {
-          console.log("then");
-        $scope.dummy = response.data;
-        $scope.postLoader();
-      }).catch(function(err) {
-        console.log("catch");
-        $log.debug(err);
-      });
-    }
+      $scope.updatePost = function(id, type) {
+        console.log(id + " " + type);
+        $http({
+          method: 'PUT',
+          url: 'api/post/'+id+'?type='+type}).then(function(response) {
+            console.log("then");
+          $scope.dummy = response.data;
+          $scope.postLoader();
+        }).catch(function(err) {
+          console.log("catch");
+          $log.debug(err);
+        });
+      }
+    });
+
+    app.controller("uploadController", function($scope, $http, $log) {
+      $scope.caption = '';
     });
 
 
