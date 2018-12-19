@@ -19,17 +19,17 @@ head
           img(src='assets/transparents_small.png', width='40', height='40', alt='')
           |  SISOSIG
         #navbarNav.collapse.navbar-collapse
-          ul.navbar-nav
-            li#fb-btn.nav-item
-              fb:login-button(scope='public_profile,email,user_photos', onlogin='checkLoginState();')
-            li#profile.nav-item
-              a.nav-link(href='#') My Profile
-            li#logout.nav-item
-              a(href='/api', onclick='logout()') Logout
-            li#theId.nav-item
+        ul.navbar-nav.justify-content-end
+          li#fb-btn.nav-item
+            fb:login-button(scope='public_profile,email,user_photos', onlogin='checkLoginState();')
+          li#profile.nav-item
+            a.profile(href='#') My Profile
+          li#theId.nav-item
+          li#prof.nav-item
+            a.prof(href='api/userprofile') My Profile
+          li#logout.nav-item
+            a.logout(href='#', onclick='logout()') Logout
 
-
-                
     
     block scripts 
       
@@ -40,8 +40,6 @@ head
           console.log(cvalue);
           document.cookie = cname + "=" + cvalue + ";path=/";
         }        
-
-
 
 
         function getCookie(cname) {

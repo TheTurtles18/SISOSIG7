@@ -130,27 +130,28 @@ block scripts
     }
   
 block content       
-  div(div='div', ng-app='myApp', ng-controller='myCtrl')
+  .div(ng-app='myApp', ng-controller='myCtrl')
     .login-page.row
-        .col-md-6
-          img.resize(src='assets/bigbeard.png')
-        .col-md-6
-          form#myLogin
-            h2.page-header  SIGN UP 
-              hr
-              .form-row
-                .form-group.col-md-6
-                  input#first.form-control(type='text', name='first', ng-model='body.First', placeholder='First Name')
-                .form-group.col-md-6
-                  input#last.form-control(type='text', name='last', ng-model='body.Last', placeholder='Last Name')
-              .form-row
-                .form-group.col-md-6
-                  input#username.form-control(type='text', name='username', ng-model='body.Username', placeholder='Username')
-                .form-group.col-md-6
-                  input#password.form-control(type='password', name='password', ng-model='body.Password', placeholder='Password')
-              .form-group
-                input#email.form-control(type='text', name='email', ng-model='body.Email', placeholder='Email Address')
-              button.btn.btn-primary(type='submit', value='Login', ng-click='submit()') Submit
+      .col-md-6
+        img.resize(src='assets/bigbeard.png')
+      .col-md-6
+        form#myLogin
+          h2.page-header  SIGN UP 
+          hr
+          .form-row
+            .form-group.col-md-6
+              input#first.form-control(type='text', name='first', ng-model='body.First', placeholder='First Name')
+            .form-group.col-md-6
+              input#last.form-control(type='text', name='last', ng-model='body.Last', placeholder='Last Name')
+          .form-row
+            .form-group.col-md-6
+              input#username.form-control(type='text', name='username', ng-model='body.Username', placeholder='Username')
+            .form-group.col-md-6
+              input#password.form-control(type='password', name='password', ng-model='body.Password', placeholder='Password')
+          .form-group
+            input#email.form-control(type='text', name='email', ng-model='body.Email', placeholder='Email Address')
+          button.btn.btn-primary(type='submit', value='Login', ng-click='submit()') Submit
+
         
         h4 {{firstname}} 
         h4(ng-bind='lastname')
