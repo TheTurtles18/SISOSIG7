@@ -11,15 +11,12 @@ var posts = require('../controllers/posts');
 var people = require('../controllers/people');
 
 router.get('/posts', posts.getPosts);
-
 router.get('/post/:id', posts.getPost);
 router.post('/post/create', posts.createPost);
-
+router.put('/post/:id', posts.updatePost);
 
 router.post('/login', people.createPerson);
- 
 router.get('/u/:id', people.getPerson);
-
 
 router.get('/userprofile', function(req, res){
   res.render('userprofile/index');

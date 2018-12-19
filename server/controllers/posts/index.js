@@ -28,10 +28,31 @@ var getPost = function(req, res){
     });
 };
 
+var updatePost = function(req, res){
+
+    Post.findById(req.params.id, function(err, post){
+        if(err) {res.send(500, err);}
+
+        if (req.query == 'shave') {
+
+            post.shave_votes += 1;
+        } else {
+            post.grow_votes += 1;
+        }
+
+        post.save(function(err, post){
+            if(err) {res.send(500, err);}
+            console.log(res.text());
+            res.json(200, post);
+        })
+
+    })
+};
+
 
 module.exports = {
     createPost,
     getPosts,
-    getPost
-
+    getPost,
+    updatePost
 }
