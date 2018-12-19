@@ -45,9 +45,15 @@ router.get('/testImage', function(req, res){
    });
 
    // Get Timeline Pa'ge
-   router.get('/timeline', function(req, res, next){
+   router.get('/timeline', function(req, res){
     res.render('timeline');
   })
+
+  router.get('/publish', function(req, res){
+    res.render('publish/index');
+  })
+
+
 
 var body = {}
 
