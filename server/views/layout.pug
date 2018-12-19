@@ -121,11 +121,13 @@ head
           if (isLoggedIn){
             document.getElementById('profile').style.display = 'block';
             document.getElementById('logout').style.display = 'block';
+            document.getElementById('createPost').style.display = 'block';
             document.getElementById('fb-btn').style.display = 'none';
             document.getElementById('theId').style.display = 'none';
           } else {
             document.getElementById('profile').style.display = 'none';
             document.getElementById('logout').style.display = 'none';
+            document.getElementById('createPost').style.display = 'none';
             document.getElementById('fb-btn').style.display = 'block';
             document.getElementById('theId').style.display = 'none';
           }
@@ -137,4 +139,5 @@ head
           });
         }
   block content
+    .content
   

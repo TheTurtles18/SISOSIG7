@@ -1,25 +1,41 @@
 extends ../layout
+  
+block append navigation
+  hr
+  li.nav-item#createPost
+    form(enctype='multipart/form-data', action='/api/upload/images', method = "POST")
+      input#image-file(type='file')
+      //input#caption(type='text')
+      button.btn.btn-primary(type='submit', value='submit', ng-click='submit()') Submit
+  //  li.nav-item#download
+    form(enctype='multipart/form-data', action='/api/upload/images', method="GET", target='_blank')
+      button.btn.btn-primary(type='submit', value='download', ng-click='submit()') Submit
+
 
 block append content
-  div(ng-app='main-app' ng-controller='postController')
+  h2.page-header Timeline
+  div(div='div' ng-app='main-app' ng-controller='postController')
     .row
-      .card(ng-repeat='post in postArray')
+      .card.col-md-3(ng-repeat='post in postArray')
         img.card-img-top(src='http://placehold.it/350x150')
         .card-block
+          
           h3.card-title {{post.caption}}
           h5 {{post.createdAt | date: 'medium'}}
           #likeDislike
             h6.card-shaves {{post.shave_votes}}
-            a.btn.like(href='#' ng-click="updatePost({{post._id}}, 'shave')") Shave
+            a.btn.like(ng-click="updatePost(post._id, 'shave')") Shave
             h6.card-grows {{post.grow_votes}}
-            a.btn.dislike(href='#' ng-click="updatePost({{post._id}}, 'grow')") Grow
+            a.btn.dislike(ng-click="updatePost(post._id, 'grow')") Grow
+  
+  // Javascript to Define Controller
   script.
     var app = angular.module("main-app", []);
     app.controller("postController", function($scope, $http, $log) {
+      $scope.count = 0;
       $scope.postArray = [];
       $scope.postLoader = function() {
         $http.get('/api/posts/').then(function(response) {
-          console.log("Here's the response!" + response.data[0].caption);
           $scope.postArray = response.data
         }).catch(function(err) {
           $log.debug(err);
@@ -31,10 +47,10 @@ block append content
       console.log(id + " " + type);
       $http({
         method: 'PUT',
-        url: './post/'+id,
-        data: type}).then(function(response) {
+        url: 'api/post/'+id+'?type='+type}).then(function(response) {
           console.log("then");
         $scope.dummy = response.data;
+        $scope.postLoader();
       }).catch(function(err) {
         console.log("catch");
         $log.debug(err);

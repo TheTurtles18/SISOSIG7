@@ -25,6 +25,10 @@ a {
   margin-top: 10px;
 }
 
+#createPost{
+	display: none;
+}
+
 .resize{
 	max-width:90%;
 	width: 100%;
@@ -86,3 +90,17 @@ a {
 	color:white;
 }
 
+.content{
+	margin:50px;
+}
+
+.card {
+	padding: 10px;
+	margin: 30px;
+}
+
+.card-img-top{
+	align-items: center;
+	width:100%!important;
+	height:auto;
+}
