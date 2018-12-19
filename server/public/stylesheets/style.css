@@ -1,6 +1,5 @@
 body {
   padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
 }
 
 a {
@@ -107,4 +106,10 @@ a {
 
 h3.my_posts{
 	align-self: center;
+}
+
+@media (max-width:500px){
+	.page-header{
+		font-size:30px;
+	}
 }
