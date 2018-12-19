@@ -41,10 +41,9 @@ body {
 }
 
 .prof:hover, .logout:hover{
-	color:#BAC9D9!important;
+	color:#ececf9!important;
 	text-decoration:none;
 }
-
 
 .navbar{
     position:absolute;
@@ -60,7 +59,7 @@ body {
 }
 
 .navbar-brand:hover{
-	color:#BAC9D9!important;
+	color:#ececf9!important;
 	text-decoration:none;
 }
 
