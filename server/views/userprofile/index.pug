@@ -5,17 +5,17 @@ block append scripts
     
 
 block append content
-  h2.page-header  User Page 
+  h2.page-header  User Profile
+  hr 
   div(div='div', ng-app='myApp', ng-controller='myCtrl')
-    div
+    .info
       #miniHeader
-      h4(ng-bind ='firstname') 
-      h4(ng-bind='lastname')
-      h4(ng-bind='email')
+        h4 Name: {{firstname}} {{lastname}}
+        h4 Email: {{email}}
     hr
-    h3 My Posts
+    h3.myPosts My Posts
     div
-      .card.col-md-3.hello(ng-repeat='post in postArray', ng-if='post.userId == id_cookie')
+      .card.col-md-6.hello(ng-repeat='post in postArray', ng-if='post.userId == id_cookie')
         img.card-img-top(ng-src='api/images/'+ '{{post.imageId}}')
         .card-block
           h3.card-title {{post.caption}}
@@ -35,16 +35,16 @@ block append content
 
       console.log("Set elements to true");
       console.log("cookie kevin");
-      console.log(getCookie("cookieKevin"));
+      console.log(getCookie("officialId"));
       var app = angular.module('myApp', []);
       app.controller('myCtrl', function($scope, $http) {
         //- console.log("hello user Id");
         //- console.log(getCookie("newCookie"));
         console.log("Looking for cookies");
         
-        if(getCookie("cookieKevin")){
+        if(getCookie("mongoCookie")){
           console.log("Mongo cookie");
-          cookieID = getCookie("cookieKevin");
+          cookieID = getCookie("mongoCookie");
           console.log(cookieID);
           //setting user ID cookie variable
           $scope.id_cookie = cookieID;
@@ -65,7 +65,7 @@ block append content
        
         else {
           console.log("Else statement - Not a mongo cookie");
-          var cookieID = getCookie("cookieKevin")
+          var cookieID = getCookie("officialId")
           console.log(cookieID);
           //setting user ID cookie variable
           $scope.id_cookie = cookieID;
