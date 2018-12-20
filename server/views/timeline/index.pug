@@ -7,9 +7,10 @@ block append navigation
   hr
   li.nav-item#createPost
     form(enctype='multipart/form-data', action='/api/upload', method = "POST")
-      input#image-file(type='file' name='file')
-      //input#caption(type='text')
-      button.btn.btn-primary(type='submit', value='submit', ng-click='submit()') Submit
+      #input-container
+        input#image-file(type='file' name='file')
+        //input#caption(type='text')
+        button#post-button.btn.btn-primary(type='submit', value='submit', ng-click='submit()') Post
   //  li.nav-item#download
     form(enctype='multipart/form-data', action='/api/upload/images', method="GET", target='_blank')
       button.btn.btn-primary(type='submit', value='download', ng-click='submit()') Submit
