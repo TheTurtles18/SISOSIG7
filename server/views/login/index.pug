@@ -29,6 +29,7 @@ block content
         h4(ng-bind='email')
 
     script.
+      
       var app = angular.module('myApp', []);
       app.controller('myCtrl', function($scope, $http, $log) {
         $scope.body = {
@@ -42,6 +43,7 @@ block content
         
         $scope.submit = function(){
           
+          setElements(true);
           console.log("Before Body");
           console.log($scope.body);
           $http({
@@ -70,7 +72,7 @@ block content
          }).catch(function(err){
            $log.debug(err);
          });
-  
+        
         }
         
       
