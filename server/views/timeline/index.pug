@@ -17,11 +17,12 @@ block append navigation
 
 block append content
   div(div='div' ng-app='main-app' ng-controller='postController')
-    .card.col-md-10.hello(ng-repeat='post in postArray')
-      img.card-img-top(ng-src="{{cardPic}}")
+    .card.col-md-6.hello(ng-repeat='post in postArray')
+      h3.card-title {{post.user_firstname}}
+      img.card-img-top(src='http://placehold.it/350x150')
       .card-block
         h3.card-title {{post.caption}}
-        h5 {{post.createdAt | date: 'medium'}}
+        h5 {{post.createdAt | date}}
         #likeDislike
           h6.card-shaves {{post.shave_votes}}
           a.btn.like(ng-click="updatePost(post._id, 'shave')") Shave

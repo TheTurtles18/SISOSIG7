@@ -17,7 +17,7 @@ block append content
           img.card-img-top(src='http://placehold.it/350x150')
           .card-block
             h3.card-title {{post.caption}}
-            h5 {{post.createdAt | date: &apos;medium&apos;}}
+            h5 {{post.createdAt | date}}
             #likeDislike
               h6.card-shaves {{post.shave_votes}} Shaves 
             #likeDislike
