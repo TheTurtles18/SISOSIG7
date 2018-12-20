@@ -16,7 +16,7 @@ block append navigation
 
 block append content
   div(div='div' ng-app='main-app' ng-controller='postController')
-    button(ng-click='makePost()') Post
+    button#post-button2(ng-click='makePost()') Post
     .card.col-md-3.hello(ng-repeat='post in postArray')
       h3.card-title {{post.user_firstname}}
       img.card-img-top(ng-src='api/images/'+ '{{post.imageId}}')
@@ -32,6 +32,8 @@ block append content
   
   // Javascript to Define Controller
   script.
+    document.getElementById('createPost').style.display = 'block';
+    document.getElementById('userLogout').style.display = 'block';
       function getCookie(cname) {
     console.log("Function get cookie");
     var name = cname + "=";

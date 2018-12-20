@@ -29,7 +29,11 @@ block content
         h4(ng-bind='email')
 
     script.
-      
+      console.log("Log in status");
+      console.log(isLin(true, false));
+
+
+      document.getElementById('userLogout').style.display = 'none';
       var app = angular.module('myApp', []);
       app.controller('myCtrl', function($scope, $http, $log) {
         $scope.body = {
@@ -43,7 +47,7 @@ block content
         
         $scope.submit = function(){
           
-          setElements(true);
+          
           console.log("Before Body");
           console.log($scope.body);
           $http({

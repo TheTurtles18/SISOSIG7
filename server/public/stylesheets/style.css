@@ -175,6 +175,29 @@ h3.my_posts{
 	align-self: center;
 }
 
+#wrapper{
+	text-align:center;
+}
+#input-container{
+	border: 3px solid #ffffff;
+	display: inline-block;
+	padding: 10px;
+	background-color: hsl(237, 16%, 25%);
+	color: #ececf9;
+	border-radius: 10px;	
+}
+#post-button2{
+	color: #ffffff!important;
+	background-color: rgb(255, 153, 0);
+	border:none;
+	font-family: 'Lato', sans-serif;
+	font-weight: bold;
+	margin: 2px;
+	display: flex;
+}
+
+
+
 @media (max-width:500px){
 	.page-header{
 		font-size:30px;

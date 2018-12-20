@@ -2,7 +2,7 @@ extends ../layout
 
 block append scripts
   script.
-    document.getElementById('logout').style.display = 'block';
+    
 
 block append content
   h2.page-header  User Page 
@@ -27,7 +27,12 @@ block append content
 
     script.
       
-     // document.getElementById('logout').style.display = 'block';
+      
+      if(!isLin(false, false)){
+        document.getElementById('userLogout').style.display = 'block';
+      }
+      
+
       console.log("Set elements to true");
       console.log("cookie kevin");
       console.log(getCookie("cookieKevin"));
