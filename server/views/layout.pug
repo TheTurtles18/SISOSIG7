@@ -29,7 +29,7 @@ head
           li#prof.nav-item
             a.prof(href='api/userprofile') My Profile
           li#logout.nav-item
-            a.logout(href='/api', onclick='logout()') Logout
+            a.logout(onclick='logout()') Logout
 
     
     block scripts 
@@ -103,18 +103,18 @@ head
             document.getElementById('profile').innerHTML =
               'Thanks for logging in, ' + response.name + '!';
             //document.getElementById('theId').innerHTML = response.id;
-            setCookie("newCookie", response.id);
+            setCookie("cookieKevin", response.id);
           });
         }
 
-
-        function checkLoginState() {
-        // console.log("Check login state");
-          FB.getLoginStatus(function(response) {
-          // console.log(response.authResponse.userID);
-          statusChangeCallback(response);
-          });
+        function checkLoginState(){
+            console.log("Check login state");
+            FB.getLoginStatus(function(response) {
+            console.log(response.authResponse.userID);
+            statusChangeCallback(response);
+            });
         }
+
 
         function setElements(isLoggedIn){
           console.log("yo here");
@@ -137,8 +137,9 @@ head
         function logout(){
           FB.logout(function(response){
             setElements(false);
+            window.replace('/api');
           });
         }
   block content
     .content
-  
+

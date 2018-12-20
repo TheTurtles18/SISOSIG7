@@ -23,16 +23,16 @@ block append content
 
     script.
       console.log("cookie kevin");
-      console.log(getCookie("officialId"));
+      console.log(getCookie("cookieKevin"));
       var app = angular.module('myApp', []);
       app.controller('myCtrl', function($scope, $http) {
         //- console.log("hello user Id");
         //- console.log(getCookie("newCookie"));
         console.log("Looking for cookies");
         
-        if(getCookie("mongoCookie")){
+        if(getCookie("cookieKevin")){
           console.log("Mongo cookie");
-          cookieID = getCookie("mongoCookie");
+          cookieID = getCookie("cookieKevin");
           console.log(cookieID);
           //setting user ID cookie variable
           $scope.id_cookie = cookieID;
@@ -53,7 +53,7 @@ block append content
        
         else {
           console.log("Else statement - Not a mongo cookie");
-          var cookieID = getCookie("officialId")
+          var cookieID = getCookie("cookieKevin")
           console.log(cookieID);
           //setting user ID cookie variable
           $scope.id_cookie = cookieID;

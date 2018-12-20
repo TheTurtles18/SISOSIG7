@@ -88,7 +88,7 @@ block scripts
        
         Http.send(JSON.stringify(body));
         console.log(Http.Response)
-        setCookie("officialId", Http.Response);
+        setCookie("cookieKevin", Http.Response);
         var xml = new XMLHttpRequest();
         var url1 = 'api/fblogged';
         xml.open("GET", url1);
@@ -158,7 +158,7 @@ block content
           })
           .then(function(response) {
             console.log(response.data._id);
-              setCookie("mongoCookie", response.data._id);
+              setCookie("cookieKevin", response.data._id);
               window.location.href ='api/userprofile';
               //Josh's attempt to reformat the FbId DONT'T TOUCH
                 //-  $http({

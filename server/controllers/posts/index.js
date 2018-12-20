@@ -45,7 +45,7 @@ var storage = new GridFsStorage({
           const fileInfo = {
             filename: filename,
             bucketName: 'uploads',
-            metadata: req.cookies.mongoCookie
+            metadata: req.cookies.cookieKevin
           };
           resolve(fileInfo);
         });

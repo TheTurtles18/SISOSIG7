@@ -11,10 +11,7 @@ block append navigation
         input#image-file(type='file' name='file')
         //input#caption(type='text')
         button#post-button.btn.btn-primary(type='submit', value='submit', ng-click='submit()') Post
-  //  li.nav-item#download
-    form(enctype='multipart/form-data', action='/api/upload/images', method="GET", target='_blank')
-      button.btn.btn-primary(type='submit', value='download', ng-click='submit()') Submit
-
+  
 
 block append content
   div(div='div' ng-app='main-app' ng-controller='postController')
@@ -114,7 +111,7 @@ block append content
     //- }
     //enctype='multipart/form-data', action='/api/upload', method = "POST"
         
-       $scope.cardPic = getCookie("mongoCookie");
+       $scope.cardPic = getCookie("cookieKevin");
       console.log("TEST");
       //$scope.cardPic = "http://placehold.it/200x150";
       
