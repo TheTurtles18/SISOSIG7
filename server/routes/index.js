@@ -6,7 +6,7 @@ var posts = require('../controllers/posts');
 var people = require('../controllers/people');
 
 router.post('/upload', posts.upload.single('file'), posts.uploadPost);
-router.get('/images/:metadata', posts.getPicture);
+router.get('/images/:filename', posts.getPicture);
 
 
 router.get('/posts', posts.getPosts);

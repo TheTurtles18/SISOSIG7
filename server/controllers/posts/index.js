@@ -1,7 +1,7 @@
 var base = process.env.PwD;
 var Post = require('../../models/post');
 var fs = require('fs');
-var Cookies = require('js-cookie');
+var Cookies = require('cookies');
 
 var app = require('../../app.js');
 var path = require('path');
@@ -27,7 +27,8 @@ var gfs;
 
 conn.once('open', () => {
     gfs = Grid(conn.db, mongoose.mongo);
-    gfs.collection('uploads');  //<- specifies name of collection, would replace 'fs' in fs.files and fs.chunks
+    gfs.collection('uploads'); 
+     //<- specifies name of collection, would replace 'fs' in fs.files and fs.chunks
 })
 
 //create storage engine
@@ -56,6 +57,13 @@ var storage = new GridFsStorage({
 
 
 var uploadPost = function (req, res){
+    console.log(req.file.filename);
+    var cookies = new Cookies(req, res)
+    
+    cookies.set('picId', req.file.filename);
+    console.log("THIS IS THE ID ");
+    console.log(cookies.get('picId'));
+
     upload.single('file');
 //    res.json({file: req.file});
     res.redirect('/api/timeline');
@@ -63,7 +71,7 @@ var uploadPost = function (req, res){
 
 var getPicture = function (req, res){
     console.log("TESTHERE");
-    gfs.files.findOne({ metadata: req.params.metadata }, (err, file) => {
+    gfs.files.findOne({ filename: req.params.filename }, (err, file) => {
         if (!file || file.length === 0){
             return res.status(404).json({
                 err: 'No File Exists'
@@ -104,7 +112,11 @@ var createPhoto = function (req, res) {
 
 var createPost = function (req, res) {
     var post = new Post(req.body);
-
+    post.imageId = req.cookies.picId;
+     //post.imageId = cookies.get('picId');
+     //console.log(req.cookies.picId);
+     console.log(post.imageId);
+    // cookies.set('picId', "");
     post.save(function (err, post){
         if(err) {res.send(500,err);}
         //post.img.data = req.body

@@ -1,5 +1,7 @@
 extends ../layout
 
+block append navigation
+
 block append content
   h2.page-header  User Page 
   div(div='div', ng-app='myApp', ng-controller='myCtrl')
@@ -12,7 +14,7 @@ block append content
     h3 My Posts
     div
       .card.col-md-3.hello(ng-repeat='post in postArray', ng-if='post.userId == id_cookie')
-        img.card-img-top(src='http://placehold.it/350x150')
+        img.card-img-top(ng-src='api/images/'+ '{{post.imageId}}')
         .card-block
           h3.card-title {{post.caption}}
           h5 {{post.createdAt | date}}
@@ -22,6 +24,7 @@ block append content
             h6.card-grows {{post.grow_votes}} Grows
 
     script.
+      
       console.log("cookie kevin");
       console.log(getCookie("cookieKevin"));
       var app = angular.module('myApp', []);
