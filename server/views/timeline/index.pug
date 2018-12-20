@@ -7,19 +7,19 @@ block append navigation
   hr
   li.nav-item#createPost
     form(enctype='multipart/form-data', action='/api/upload', method = "POST")
-      input#image-file(type='file' name='file')
-      //input#caption(type='text')
-      button.btn.btn-primary(type='submit', value='submit', ng-click='submit()') Submit
-  //  li.nav-item#download
-    form(enctype='multipart/form-data', action='/api/upload/images', method="GET", target='_blank')
-      button.btn.btn-primary(type='submit', value='download', ng-click='submit()') Submit
-
+      #input-container
+        input#image-file(type='file' name='file')
+        //input#caption(type='text')
+        button#post-button.btn.btn-primary(type='submit', value='submit', ng-click='submit()') Upload
+    
+  
 
 block append content
   div(div='div' ng-app='main-app' ng-controller='postController')
+    button(ng-click='makePost()') Post
     .card.col-md-3.hello(ng-repeat='post in postArray')
       h3.card-title {{post.user_firstname}}
-      img.card-img-top(ng-src= 'api/images/' + '{{cardPic}}')
+      img.card-img-top(ng-src='api/images/'+ '{{post.imageId}}')
       .card-block
         h3.card-title {{post.caption}}
         h5 {{post.createdAt | date}}
@@ -32,12 +32,32 @@ block append content
   
   // Javascript to Define Controller
   script.
+      function getCookie(cname) {
+    console.log("Function get cookie");
+    var name = cname + "=";
+    var decodedCookie = decodeURIComponent(document.cookie);
+    var ca = decodedCookie.split(';');
+    for(var i = 0; i <ca.length; i++) {
+      var c = ca[i];
+      while (c.charAt(0) == ' ') {
+        c = c.substring(1);
+      }
+      if (c.indexOf(name) == 0) {
+      return c.substring(name.length, c.length);
+      }
+      }
+    return "";
+    }
+
+
+
     var app = angular.module("main-app", []);
     app.controller("postController", function($scope, $http, $log) {
       $scope.postArray = [];
       $scope.postLoader = function() {
         $http.get('/api/posts/').then(function(response) {
           $scope.postArray = response.data
+          
         }).catch(function(err) {
           $log.debug(err);
         });
@@ -58,9 +78,89 @@ block append content
       });
     }
 
-      console.log("TEST");
+    $scope.makePost = function(){
+      var cookPoo = getCookie('cookieKevin');
+      var person;
+     
+       $http({
+        method: 'GET',
+        url: 'api/fblogged/'+cookPoo
+        }).then(function(response) {
+          console.log(response);
+          person = response.data.First;
+          console.log(person);
+      }).catch(function(err) {
+        console.log("catch");
+        $log.debug(err);
+      });
+       var body = {
+        userId: String(cookPoo),
+        user_firstname: person
+      };
+       
+       
+       $http({
+        method: 'POST',
+        url: 'api/post/create',
+        data: body
+        }).then(function(response) {
+          console.log("then");
+          console.log(response);
+      }).catch(function(err) {
+        console.log("catch");
+        $log.debug(err);
+      });
+
+      
+
+     
+ 
+
+
+      
+ 
+    }
+
+    
+
+      
+
+    $scope.submit = function() {
+      var payload = new FormData();
+
+      payload.append('file', $scope.thefile);
+      console.log()
+      $http({
+        method: 'POST',
+        url: 'api/upload', 
+        data: payload,
+        enctype: 'multipart/form-data', 
+        transformRequest: angular.identity
+        }).then(function(response) {
+          console.log("then");
+          console.log(response);
+      }).catch(function(err) {
+        console.log("catch");
+        $log.debug(err);
+      });
+    }
+
+
+
+    //- $scope.submit = function() {
+    //-   $http({
+    //-     method: 'POST',
+    //-     url: '/api/upload'
+    //-     enctype: 'multipart/form-data'
+    //-   });
+    //- }
+    //enctype='multipart/form-data', action='/api/upload', method = "POST"
+        
+       $scope.cardPic = "abb80bb924485a6890cf0c0a128c4976.png";
+      //console.log(getCookie());
       //$scope.cardPic = "http://placehold.it/200x150";
-      $scope.cardPic = '23c37dcf8a3f74199b06c32a45bdb22d.jpg';
+      
+     
     
 
     });

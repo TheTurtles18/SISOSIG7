@@ -11,6 +11,27 @@ body {
 	padding: 50px;
 	background-color: #ececf9;
 }
+#input-container{
+	border: 3px solid #ffffff;
+	display: inline-block;
+	padding: 10px;
+	background-color: hsl(237, 16%, 25%);
+	color: #ececf9;
+	border-radius: 10px;
+}
+#post-button{ 
+	color: #ffffff!important;
+	background-color: rgb(255, 153, 0);
+	border:none;
+	font-family: 'Lato', sans-serif;
+	font-weight: bold;
+	
+}
+
+#post-button:hover {
+	background-color:rgb(247, 102, 6)!important;
+	border:none;
+}
 
 .resize{
 	max-width:90%;
