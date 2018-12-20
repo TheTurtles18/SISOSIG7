@@ -26,13 +26,15 @@ head
           li#prof.nav-item
             a.prof(href='api/userprofile') My Profile
           li#logout.nav-item
-            a.logout(onclick='logout()') Logout
+            btn.logout(onclick='logout()') Logout
 
     
     block scripts 
       
       script.
-        console.log("Layout ")
+       
+       
+        
         function setCookie(cname, cvalue) {
           console.log("Creating a cookie with value of ");
           console.log(cvalue);
@@ -83,25 +85,32 @@ head
         function statusChangeCallback(response){
           if (response.status == 'connected'){
             console.log('Logged in!');
+            Jlogged = 1;
             //THIS IS WHERE WE RE-DIRECT THE CLIENT TO THE FEED
 
             testAPI();
-            console.log(response);
+            console.log("This would be a response");
             setElements(true);
+            console.log("MOVE TO TIMELINE");
+            //window.location.href ='api/timeline';
+            
           } else {
             console.log('Not authenticated.');
             setElements(false);
+            //window.location.href ='api/';
           }
         }
         function testAPI() {
           console.log('Welcome!  Fetching your information.... ');
           FB.api('/me', function(response) {
             console.log('Successful login for: ' + response.name);
-            document.getElementById('profile').innerHTML =
-              'Thanks for logging in, ' + response.name + '!';
             //document.getElementById('theId').innerHTML = response.id;
             setCookie("cookieKevin", response.id);
+            console.log("Cookie Kevin has been set to");
+            console.log(response.id);
+            
           });
+          //window.location.href ='api/timeline';
         }
 
         function checkLoginState(){
@@ -113,21 +122,23 @@ head
         }
 
 
+
         function setElements(isLoggedIn){
-          console.log("yo here");
+          console.log("Setting Elements");
           if (isLoggedIn){
-            console.log("we yo here");
-            document.getElementById('profile').style.display = 'block';
+            console.log("Is logged in is true");
+            document.getElementById('prof').style.display = 'block';
             document.getElementById('logout').style.display = 'block';
-            document.getElementById('createPost').style.display = 'block';
+            //This causes an error when the page is first loaded becuase the timeline page hasn't been loaded 
+            //document.getElementById('createPost').style.display = 'block';
             document.getElementById('fb-btn').style.display = 'none';
-            document.getElementById('theId').style.display = 'none';
+            
           } else {
-            document.getElementById('profile').style.display = 'none';
+            document.getElementById('prof').style.display = 'none';
             document.getElementById('logout').style.display = 'none';
-            document.getElementById('createPost').style.display = 'none';
+            //document.getElementById('createPost').style.display = 'none';
             document.getElementById('fb-btn').style.display = 'block';
-            document.getElementById('theId').style.display = 'none';
+           
           }
         }
 

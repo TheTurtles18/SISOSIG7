@@ -16,7 +16,6 @@ block append navigation
 
 block append content
   div(div='div' ng-app='main-app' ng-controller='postController')
-    img #{image}
     button(ng-click='makePost()') Post
     .card.col-md-3.hello(ng-repeat='post in postArray')
       h3.card-title {{post.user_firstname}}
@@ -99,7 +98,7 @@ block append content
         user_firstname: person
       };
 
-      
+
        
        
        $http({
@@ -115,38 +114,10 @@ block append content
       });
 
       
-
-     
- 
-
-
-      
  
     }
 
     
-
-      
-
-    $scope.submit = function() {
-      var payload = new FormData();
-
-      payload.append('file', $scope.thefile);
-      console.log()
-      $http({
-        method: 'POST',
-        url: 'api/upload', 
-        data: payload,
-        enctype: 'multipart/form-data', 
-        transformRequest: angular.identity
-        }).then(function(response) {
-          console.log("then");
-          console.log(response);
-      }).catch(function(err) {
-        console.log("catch");
-        $log.debug(err);
-      });
-    }
 
 
 
