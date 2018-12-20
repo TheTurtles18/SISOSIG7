@@ -3,29 +3,33 @@ extends ../layout
 block append navigation
   br 
   br
-  
+  h2.page-header Stubble Feed
+  hr
+  li.nav-item#createPost
+    form(enctype='multipart/form-data', action='/api/upload', method = "POST")
+      #input-container
+        input#image-file(type='file' name='file')
+        //input#caption(type='text')
+        button#post-button.btn.btn-primary(type='submit', value='submit', ng-click='submit()') Post
+  //  li.nav-item#download
+    form(enctype='multipart/form-data', action='/api/upload/images', method="GET", target='_blank')
+      button.btn.btn-primary(type='submit', value='download', ng-click='submit()') Submit
+
 
 block append content
   div(div='div' ng-app='main-app' ng-controller='postController')
-    h2.page-header Stubble Feed
-    hr
-    li.nav-item#createPost
-      form
-        input#image-file(type='file' name='file' ng-model='thefile')
-        //input#caption(type='text')
-        button.btn.btn-primary(type='submit', value='submit', ng-click='submit()') Submit
-    .row
-      .card.col-md-3(ng-repeat='post in postArray')
-        img.card-img-top(ng-src= 'api/images/' + '{{cardPic}}')
-        .card-block
-          h3.card-title {{post.caption}}
-          h5 {{post.createdAt | date: 'medium'}}
-          #likeDislike
-            h6.card-shaves {{post.shave_votes}}
-            a.btn.like(ng-click="updatePost(post._id, 'shave')") Shave
-          #likeDislike
-            h6.card-grows {{post.grow_votes}}
-            a.btn.dislike(ng-click="updatePost(post._id, 'grow')") Grow
+    .card.col-md-3.hello(ng-repeat='post in postArray')
+      h3.card-title {{post.user_firstname}}
+      img.card-img-top(ng-src= 'api/images/' + '{{cardPic}}')
+      .card-block
+        h3.card-title {{post.caption}}
+        h5 {{post.createdAt | date}}
+        #likeDislike
+          h6.card-shaves {{post.shave_votes}}
+          a.btn.like(ng-click="updatePost(post._id, 'shave')") Shave
+        #likeDislike
+          h6.card-grows {{post.grow_votes}}
+          a.btn.dislike(ng-click="updatePost(post._id, 'grow')") Grow
   
   // Javascript to Define Controller
   script.
