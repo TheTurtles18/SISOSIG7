@@ -5,18 +5,18 @@ block append scripts
     
 
 block append content
-  h2.page-header  User Page 
+  h2.page-header  User Profile
+  hr 
   div(div='div', ng-app='myApp', ng-controller='myCtrl')
-    div
+    .info
       #miniHeader
-      h4(ng-bind ='firstname') 
-      h4(ng-bind='lastname')
-      h4(ng-bind='email')
+        h4 Name: {{firstname}} {{lastname}}
+        h4 Email: {{email}}
     hr
-    h3 My Posts
+    h3.myPosts My Posts
     div
-      .card.col-md-3.hello(ng-repeat='post in postArray', ng-if='post.userId == id_cookie')
-        img.card-img-top(src='http://placehold.it/350x150')
+      .card.col-md-6.hello(ng-repeat='post in postArray', ng-if='post.userId == id_cookie')
+        img.card-img-top(ng-src='api/images/'+ '{{post.imageId}}')
         .card-block
           h3.card-title {{post.caption}}
           h5 {{post.createdAt | date}}

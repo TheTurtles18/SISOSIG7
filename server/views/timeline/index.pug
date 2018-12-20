@@ -17,7 +17,7 @@ block append navigation
 block append content
   div(div='div' ng-app='main-app' ng-controller='postController')
     button#post-button2(ng-click='makePost()') Post
-    .card.col-md-3.hello(ng-repeat='post in postArray')
+    .card.col-md-6.hello(ng-repeat='post in postArray')
       h3.card-title {{post.user_firstname}}
       img.card-img-top(ng-src='api/images/'+ '{{post.imageId}}')
       .card-block

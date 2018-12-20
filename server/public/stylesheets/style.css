@@ -209,3 +209,23 @@ h3.my_posts{
 
 	}
 }
+
+/* //////////// User Profile Styling //////// */
+.info {
+	border: 2px;
+	border-color: #ffffff;
+	border-style: solid;
+	background-color:  #b3b3cc;
+}
+
+#miniHeader {
+	padding: 10px;
+	font-family: 'Palatino';
+	font-weight: bolder; 
+}
+
+.myPosts {
+	font-family: 'Patua One', cursive;
+	font-weight: bolder;
+	color: #36374a;
+}
