@@ -19,7 +19,7 @@ block append content
   div(div='div' ng-app='main-app' ng-controller='postController')
     .row
       .card.col-md-3(ng-repeat='post in postArray')
-        img.card-img-top(src='http://placehold.it/350x150')
+        img.card-img-top(ng-src= 'api/images/' + '{{cardPic}}')
         .card-block
           h3.card-title {{post.caption}}
           h5 {{post.createdAt | date: 'medium'}}
@@ -57,6 +57,12 @@ block append content
         $log.debug(err);
       });
     }
+
+      console.log("TEST");
+      //$scope.cardPic = "http://placehold.it/200x150";
+      $scope.cardPic = '23c37dcf8a3f74199b06c32a45bdb22d.jpg';
+    
+
     });
 
 

@@ -13,7 +13,7 @@ block append content
     div
 
       .row
-        .card.col-md-3(ng-repeat='post in postArray', ng-if='post.userId == 1')
+        .card.col-md-3(ng-repeat='post in postArray', ng-if='post.userId == id_cookie')
           img.card-img-top(src='http://placehold.it/350x150')
           .card-block
             h3.card-title {{post.caption}}
@@ -36,6 +36,8 @@ block append content
           console.log("Mongo cookie");
           cookieID = getCookie("mongoCookie");
           console.log(cookieID);
+          //setting user ID cookie variable
+          $scope.id_cookie = cookieID;
           $http({
           method : "GET",
           url : 'api/u/'+cookieID
@@ -48,7 +50,6 @@ block append content
           $scope.lastname = response.data.Last;  
           $scope.username = response.data.Username;  
           $scope.email = response.data.Email;  
-          
          });
         }
        
@@ -56,6 +57,8 @@ block append content
           console.log("Else statement - Not a mongo cookie");
           var cookieID = getCookie("officialId")
           console.log(cookieID);
+          //setting user ID cookie variable
+          $scope.id_cookie = cookieID;
           $http({
           method : "GET",
           url : 'api/fblogged/'+cookieID

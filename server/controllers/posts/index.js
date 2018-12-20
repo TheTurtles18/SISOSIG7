@@ -57,7 +57,7 @@ var storage = new GridFsStorage({
           const fileInfo = {
             filename: filename,
             bucketName: 'uploads',
-            metadata: 1420196678110397
+            metadata: getCookie("mongoCookie")
           };
           resolve(fileInfo);
         });
@@ -66,6 +66,22 @@ var storage = new GridFsStorage({
   });
   const upload = multer({ storage });
 
+function getCookie(cname) {
+    console.log("Function get cookie");
+    var name = cname + "=";
+    var decodedCookie = decodeURIComponent(document.cookie);
+    var ca = decodedCookie.split(';');
+    for(var i = 0; i <ca.length; i++) {
+        var c = ca[i];
+        while (c.charAt(0) == ' ') {
+        c = c.substring(1);
+        }
+        if (c.indexOf(name) == 0) {
+        return c.substring(name.length, c.length);
+        }
+        }
+    return "";
+}
 
 var uploadPost = function (req, res){
     upload.single('file');
@@ -74,6 +90,7 @@ var uploadPost = function (req, res){
 }
 
 var getPicture = function (req, res){
+    console.log("TESTHERE");
     gfs.files.findOne({ filename: req.params.filename }, (err, file) => {
         if (!file || file.length === 0){
             return res.status(404).json({
