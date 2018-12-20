@@ -86,10 +86,6 @@ body {
 
 /* =========== CARD STYLING =========== */
 
-div {
-	/*align-items: center;*/
-}
-
 .card-img-top {
   width: 50%;
   height: 420px;
@@ -141,6 +137,8 @@ div {
 
 .content{
 	margin:50px;
+	position: auto;
+	top: auto;
 }
 
 .btn{ 

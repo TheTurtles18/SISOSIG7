@@ -28,12 +28,27 @@ head
           li#prof.nav-item
             a.prof(href='api/userprofile') My Profile
           li#logout.nav-item
-            a.logout(href='/api', onclick='logout()') Logout
+            a.logout(href='#', onclick='logout()') Logout
 
     
     block scripts 
       
+
       script.
+
+        var navbar = document.getElementByTagName('nav');
+        var content_block = document.getElementByTagName('content');
+        window.onscroll = function() {
+          
+          if(window.pageYoffset > 100px) {
+            navbar.style.postion = "fixed";
+            navbar.style.top = 0;
+          } else {
+            content_block.style.position = "absolute";
+            content.style.top = 100px;
+          }
+        }
+
         console.log("Layout ")
         function setCookie(cname, cvalue) {
           console.log("Creating a cookie with value of ");
@@ -57,7 +72,7 @@ head
             }
             }
           return "";
-          }
+        }
 
 
         window.fbAsyncInit = function() {
