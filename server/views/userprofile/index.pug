@@ -13,13 +13,8 @@ block append content
     hr
     h3 My Posts
     div
-<<<<<<< HEAD
-      .card.col-md-3.hello(ng-repeat='post in postArray')
-        img.card-img-top(src='http://placehold.it/350x150')
-=======
       .card.col-md-3.hello(ng-repeat='post in postArray', ng-if='post.userId == id_cookie')
-        img.card-img-top(ng-src='api/images/'+ '{{post.imageId}}')
->>>>>>> 93ae09165047b48190f10d43ec63d5f670a87e4a
+        img.card-img-top(src='http://placehold.it/350x150')
         .card-block
           h3.card-title {{post.caption}}
           h5 {{post.createdAt | date}}
@@ -29,18 +24,17 @@ block append content
             h6.card-grows {{post.grow_votes}} Grows
 
     script.
-      
       console.log("cookie kevin");
-      console.log(getCookie("cookieKevin"));
+      console.log(getCookie("officialId"));
       var app = angular.module('myApp', []);
       app.controller('myCtrl', function($scope, $http) {
         //- console.log("hello user Id");
         //- console.log(getCookie("newCookie"));
         console.log("Looking for cookies");
         
-        if(getCookie("cookieKevin")){
+        if(getCookie("mongoCookie")){
           console.log("Mongo cookie");
-          cookieID = getCookie("cookieKevin");
+          cookieID = getCookie("mongoCookie");
           console.log(cookieID);
           //setting user ID cookie variable
           $scope.id_cookie = cookieID;
@@ -61,7 +55,7 @@ block append content
        
         else {
           console.log("Else statement - Not a mongo cookie");
-          var cookieID = getCookie("cookieKevin")
+          var cookieID = getCookie("officialId")
           console.log(cookieID);
           //setting user ID cookie variable
           $scope.id_cookie = cookieID;
