@@ -193,10 +193,12 @@ h3.my_posts{
 	font-family: 'Lato', sans-serif;
 	font-weight: bold;
 	margin: 2px;
-	display: flex;
+	display: inline-block;
 }
 
-
+.wrapper{
+	text-align: center;
+}
 
 @media (max-width:500px){
 	.page-header{
