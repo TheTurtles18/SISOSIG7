@@ -22,10 +22,7 @@ head
         #navbarNav.collapse.navbar-collapse
         ul.navbar-nav.justify-content-end
           li#fb-btn.nav-item
-            fb:login-button(scope='public_profile,email,user_photos', onlogin='checkLoginState();')
-          li#profile.nav-item
-            a.profile(href='#') My Profile
-          li#theId.nav-item
+            fb:login-button(scope='public_profile,email,user_photos', onlogin='checkLoginState()')
           li#prof.nav-item
             a.prof(href='api/userprofile') My Profile
           li#logout.nav-item
