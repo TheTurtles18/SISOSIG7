@@ -16,36 +16,18 @@ block append navigation
 
 
 block append content
-<<<<<<< HEAD
-  h2.page-header Stubble Feed
-  div(div='div', ng-app='main-app', ng-controller='postController')
+  div(div='div' ng-app='main-app' ng-controller='postController')
     .card.col-md-10.hello(ng-repeat='post in postArray')
-      img.card-img-top(src='http://placehold.it/350x150')
+      img.card-img-top(ng-src="{{cardPic}}")
       .card-block
         h3.card-title {{post.caption}}
-        h5 {{post.createdAt | date: &apos;medium&apos;}}
+        h5 {{post.createdAt | date: 'medium'}}
         #likeDislike
           h6.card-shaves {{post.shave_votes}}
           a.btn.like(ng-click="updatePost(post._id, 'shave')") Shave
         #likeDislike
           h6.card-grows {{post.grow_votes}}
           a.btn.dislike(ng-click="updatePost(post._id, 'grow')") Grow
-
-=======
-  div(div='div' ng-app='main-app' ng-controller='postController')
-    .row
-      .card.col-md-3(ng-repeat='post in postArray')
-        img.card-img-top(ng-src="{{cardPic}}")
-        .card-block
-          h3.card-title {{post.caption}}
-          h5 {{post.createdAt | date: 'medium'}}
-          #likeDislike
-            h6.card-shaves {{post.shave_votes}}
-            a.btn.like(ng-click="updatePost(post._id, 'shave')") Shave
-          #likeDislike
-            h6.card-grows {{post.grow_votes}}
-            a.btn.dislike(ng-click="updatePost(post._id, 'grow')") Grow
->>>>>>> e65d8bd810c0b5de42537403916b656caf7e0753
   
   // Javascript to Define Controller
   script.
