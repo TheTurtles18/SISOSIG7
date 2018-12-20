@@ -1,6 +1,8 @@
 extends ../layout
 
-block append navigation
+block append scripts
+  script.
+    
 
 block append content
   h2.page-header  User Page 
@@ -24,6 +26,14 @@ block append content
             h6.card-grows {{post.grow_votes}} Grows
 
     script.
+      
+      
+      if(!isLin(false, false)){
+        document.getElementById('userLogout').style.display = 'block';
+      }
+      
+
+      console.log("Set elements to true");
       console.log("cookie kevin");
       console.log(getCookie("officialId"));
       var app = angular.module('myApp', []);

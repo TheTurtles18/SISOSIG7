@@ -1,110 +1,5 @@
 extends ../layout
 
-block scripts
-  script.
-
-    function setCookie(cname, cvalue) {
-      console.log("Creating a cookie with value of ");
-      console.log(cvalue);
-      document.cookie = cname + "=" + cvalue + ";path=/";
-    }        
-
-
-
-
-    function getCookie(cname) {
-      console.log("Function get cookie");
-      var name = cname + "=";
-      var decodedCookie = decodeURIComponent(document.cookie);
-      var ca = decodedCookie.split(';');
-      for(var i = 0; i <ca.length; i++) {
-        var c = ca[i];
-        while (c.charAt(0) == ' ') {
-          c = c.substring(1);
-        }
-        if (c.indexOf(name) == 0) {
-        return c.substring(name.length, c.length);
-        }
-        }
-      return "";
-      }
-
-
-
-
-    window.fbAsyncInit = function() {
-    FB.init({
-    appId            : '530954160705254',
-    autoLogAppEvents : true,
-    xfbml            : true,
-    version          : 'v3.2'
-    });
-      FB.getLoginStatus(function(response) {
-        console.log("Get Login Status");
-        console.log(response);
-        statusChangeCallback(response);
-      });
-    };
-    (function(d, s, id){
-      
-    var js, fjs = d.getElementsByTagName(s)[0];
-    if (d.getElementById(id)) {return;}
-    js = d.createElement(s); js.id = id;
-    js.src = "https://connect.facebook.net/en_US/sdk.js";
-    fjs.parentNode.insertBefore(js, fjs);
-    }(document, 'script', 'facebook-jssdk'));
-
-    function statusChangeCallback(response){
-      if (response.status == 'connected'){
-        console.log('Logged in!');
-        //THIS IS WHERE WE RE-DIRECT THE CLIENT TO THE FEED
-
-        testAPI();
-        window.location.href ='api/userprofile';
-        console.log(response);
-        setElements(true);
-      } else {
-        console.log('Not authenticated.');
-        setElements(false);
-      }
-    }
-    function testAPI() {
-      console.log('Welcome!  Fetching your information.... ');
-      FB.api('/me?fields=id,first_name,last_name,email,name', function(response) {
-        const Http  = new XMLHttpRequest();
-        const url = 'api/login'
-        console.log(response);
-        var body = {
-          First: response.first_name,
-          Last: response.last_name,
-          Email: response.email,
-          
-          FbId: response.id
-
-        };
-        
-        Http.open("POST", url);
-        Http.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
-       
-        Http.send(JSON.stringify(body));
-        console.log(Http.Response)
-        setCookie("cookieKevin", Http.Response);
-        var xml = new XMLHttpRequest();
-        var url1 = 'api/fblogged';
-        xml.open("GET", url1);
-        console.log("DID MA THING");
-        xml.send();
-
-
-
-        console.log('Successful login for: ' + response.name);
-        document.getElementById('profile').innerHTML =
-          'Thanks for logging in, ' + response.name + '!';
-          
-      });
-    }
-
-  
 block content       
   .div(ng-app='myApp', ng-controller='myCtrl')
     .login-page.row
@@ -134,6 +29,11 @@ block content
         h4(ng-bind='email')
 
     script.
+      console.log("Log in status");
+      console.log(isLin(true, false));
+
+
+      document.getElementById('userLogout').style.display = 'none';
       var app = angular.module('myApp', []);
       app.controller('myCtrl', function($scope, $http, $log) {
         $scope.body = {
@@ -146,6 +46,7 @@ block content
           } 
         
         $scope.submit = function(){
+          
           
           console.log("Before Body");
           console.log($scope.body);
@@ -175,7 +76,7 @@ block content
          }).catch(function(err){
            $log.debug(err);
          });
-  
+        
         }
         
       

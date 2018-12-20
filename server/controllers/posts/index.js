@@ -57,7 +57,8 @@ var storage = new GridFsStorage({
 
 
 var uploadPost = function (req, res){
-    console.log(req.file.filename);
+    console.log("THE FILE");
+    console.log(req);
     var cookies = new Cookies(req, res)
     
     cookies.set('picId', req.file.filename);

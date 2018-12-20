@@ -23,32 +23,24 @@ head
         ul.navbar-nav.justify-content-end
           li#fb-btn.nav-item
             fb:login-button(scope='public_profile,email,user_photos', onlogin='checkLoginState()')
-          li#theId.nav-item
           li#prof.nav-item
             a.prof(href='api/userprofile') My Profile
           li#logout.nav-item
-            a.logout(onclick='logout()') Logout
+            btn.logout(onclick='logout()') Logout
+          li#userLogout.nav-item
+            btn.logout(onclick='userLogout()') Logout
 
     
     block scripts 
       
 
       script.
+       
+       
+        
+        //Global variable is logged in 
+        var isLog = false;
 
-        var navbar = document.getElementByTagName('nav');
-        var content_block = document.getElementByTagName('content');
-        window.onscroll = function() {
-          
-          if(window.pageYoffset > 100px) {
-            navbar.style.postion = "fixed";
-            navbar.style.top = 0;
-          } else {
-            content_block.style.position = "absolute";
-            content.style.top = 100px;
-          }
-        }
-
-        console.log("Layout ")
         function setCookie(cname, cvalue) {
           console.log("Creating a cookie with value of ");
           console.log(cvalue);
@@ -99,25 +91,33 @@ head
         function statusChangeCallback(response){
           if (response.status == 'connected'){
             console.log('Logged in!');
+            isLog = true;
+            isLog = false;
             //THIS IS WHERE WE RE-DIRECT THE CLIENT TO THE FEED
 
             testAPI();
-            console.log(response);
+            console.log("This would be a response");
             setElements(true);
+            console.log("MOVE TO TIMELINE");
+            //window.location.href ='api/timeline';
+            
           } else {
             console.log('Not authenticated.');
             setElements(false);
+            //window.location.href ='api/';
           }
         }
         function testAPI() {
           console.log('Welcome!  Fetching your information.... ');
           FB.api('/me', function(response) {
             console.log('Successful login for: ' + response.name);
-            document.getElementById('profile').innerHTML =
-              'Thanks for logging in, ' + response.name + '!';
             //document.getElementById('theId').innerHTML = response.id;
             setCookie("cookieKevin", response.id);
+            console.log("Cookie Kevin has been set to");
+            console.log(response.id);
+            
           });
+          //window.location.href ='api/timeline';
         }
 
         function checkLoginState(){
@@ -129,29 +129,62 @@ head
         }
 
 
+
         function setElements(isLoggedIn){
-          console.log("yo here");
+          console.log("Setting Elements");
           if (isLoggedIn){
-            console.log("we yo here");
-            document.getElementById('profile').style.display = 'block';
+            console.log("Is logged in is true");
+            document.getElementById('prof').style.display = 'block';
             document.getElementById('logout').style.display = 'block';
+            //This causes an error when the page is first loaded becuase the timeline page hasn't been loaded 
             document.getElementById('createPost').style.display = 'block';
             document.getElementById('fb-btn').style.display = 'none';
-            document.getElementById('theId').style.display = 'none';
-          } else {
-            document.getElementById('profile').style.display = 'none';
+            document.getElementById('userLogout').style.display = 'none';
+
+            
+          } 
+          else if(isLog){
+            document.getElementById('prof').style.display = 'block';
             document.getElementById('logout').style.display = 'none';
-            document.getElementById('createPost').style.display = 'none';
+            //This causes an error when the page is first loaded becuase the timeline page hasn't been loaded 
+            //document.getElementById('createPost').style.display = 'block';
+            document.getElementById('fb-btn').style.display = 'none';
+            document.getElementById('userLogout').style.display = 'block';
+          }
+          else {
+            
+            document.getElementById('prof').style.display = 'none';
+            document.getElementById('logout').style.display = 'none';
+           // document.getElementById('createPost').style.display = 'none';
             document.getElementById('fb-btn').style.display = 'block';
-            document.getElementById('theId').style.display = 'none';
+            document.getElementById('userLogout').style.display = 'none';
+           
+          }
+        }
+
+        function isLin(boolLogged, flip){
+          if(flip){
+            isLog = boolLogged;
+          }
+          else {
+            return boolLogged
           }
         }
 
         function logout(){
+          isLog = false;
           FB.logout(function(response){
             setElements(false);
-            window.location.href ='api/';
+            
           });
+          setCookie("cookieKevin", "");
+          window.location.href ='api/';
+        }
+
+        function userLogout(){
+          isLog = false;
+          setCookie("cookieKevin", "");
+          window.location.href ='api/';
         }
   block content
     .content
