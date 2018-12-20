@@ -1,6 +1,7 @@
 var base = process.env.PwD;
 var Post = require('../../models/post');
 var fs = require('fs');
+var Cookies = require('js-cookie');
 
 var app = require('../../app.js');
 var path = require('path');
@@ -11,6 +12,7 @@ var GridFsStorage = require('multer-gridfs-storage');
 var Grid = require('gridfs-stream');
 
 
+
 //Mongo URI
 var mongoURI = 'mongodb://localhost:27017/mean_app_db';
 
@@ -18,22 +20,6 @@ var mongoURI = 'mongodb://localhost:27017/mean_app_db';
 var conn = mongoose.connection;
 //Grid.mongo = mongoose.mongo;
 
-function getCookie(cname) {
-    console.log("Function get cookie");
-    var name = cname + "=";
-    var decodedCookie = decodeURIComponent(document.cookie);
-    var ca = decodedCookie.split(';');
-    for(var i = 0; i <ca.length; i++) {
-      var c = ca[i];
-      while (c.charAt(0) == ' ') {
-        c = c.substring(1);
-      }
-      if (c.indexOf(name) == 0) {
-      return c.substring(name.length, c.length);
-      }
-      }
-    return "";
-    }
 
 
 //init stream
@@ -45,6 +31,8 @@ conn.once('open', () => {
 })
 
 //create storage engine
+
+
 var storage = new GridFsStorage({
     url: mongoURI,
     file: (req, file) => {
@@ -57,7 +45,7 @@ var storage = new GridFsStorage({
           const fileInfo = {
             filename: filename,
             bucketName: 'uploads',
-            metadata: getCookie("mongoCookie")
+            metadata: req.cookies.mongoCookie
           };
           resolve(fileInfo);
         });
@@ -66,22 +54,6 @@ var storage = new GridFsStorage({
   });
   const upload = multer({ storage });
 
-function getCookie(cname) {
-    console.log("Function get cookie");
-    var name = cname + "=";
-    var decodedCookie = decodeURIComponent(document.cookie);
-    var ca = decodedCookie.split(';');
-    for(var i = 0; i <ca.length; i++) {
-        var c = ca[i];
-        while (c.charAt(0) == ' ') {
-        c = c.substring(1);
-        }
-        if (c.indexOf(name) == 0) {
-        return c.substring(name.length, c.length);
-        }
-        }
-    return "";
-}
 
 var uploadPost = function (req, res){
     upload.single('file');
@@ -91,13 +63,13 @@ var uploadPost = function (req, res){
 
 var getPicture = function (req, res){
     console.log("TESTHERE");
-    gfs.files.findOne({ filename: req.params.filename }, (err, file) => {
+    gfs.files.findOne({ metadata: req.params.metadata }, (err, file) => {
         if (!file || file.length === 0){
             return res.status(404).json({
                 err: 'No File Exists'
             });
         }
-        if (file.contentType === 'image/jpeg' || file.contentType === 'img/png'){
+        if (file.contentType === 'image/jpeg' || file.contentType === 'image/png'){
             const readstream = gfs.createReadStream(file.filename);
             readstream.pipe(res);
         } else {
@@ -107,6 +79,15 @@ var getPicture = function (req, res){
         }
     })
 }
+
+// var getPicName = function(req, res){
+//     gfs.files.findOne({ metadata: req.params.metadata }, (err, file) => {
+//         if (file.contentType === 'image/jpeg' || file.contentType === 'image/png'){
+//             const readstream = gfs.createReadStream(file.filename);
+//             readstream.pipe(res);
+//         }
+//     }) 
+// }
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 var createPhoto = function (req, res) {
@@ -171,5 +152,6 @@ module.exports = {
     updatePost,
     uploadPost,
     upload,
-    getPicture
+    getPicture 
+    
 }
