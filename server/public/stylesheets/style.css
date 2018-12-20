@@ -28,6 +28,20 @@ body {
 	
 }
 
+
+#post-button2{ 
+	color: #ffffff!important;
+	background-color: rgb(255, 153, 0);
+	border:none;
+	font-family: 'Lato', sans-serif;
+	font-weight: bold;
+	display: inline-block;
+}
+.wrapper{
+	text-align: center;
+	
+}
+
 #post-button:hover {
 	background-color:rgb(247, 102, 6)!important;
 	border:none;
