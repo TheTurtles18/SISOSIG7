@@ -17,18 +17,18 @@ block append navigation
 
 block append content
   div(div='div' ng-app='main-app' ng-controller='postController')
-    .row
-      .card.col-md-3(ng-repeat='post in postArray')
-        img.card-img-top(ng-src= 'api/images/' + '{{cardPic}}')
-        .card-block
-          h3.card-title {{post.caption}}
-          h5 {{post.createdAt | date: 'medium'}}
-          #likeDislike
-            h6.card-shaves {{post.shave_votes}}
-            a.btn.like(ng-click="updatePost(post._id, 'shave')") Shave
-          #likeDislike
-            h6.card-grows {{post.grow_votes}}
-            a.btn.dislike(ng-click="updatePost(post._id, 'grow')") Grow
+    .card.col-md-3.hello(ng-repeat='post in postArray')
+      h3.card-title {{post.user_firstname}}
+      img.card-img-top(ng-src= 'api/images/' + '{{cardPic}}')
+      .card-block
+        h3.card-title {{post.caption}}
+        h5 {{post.createdAt | date}}
+        #likeDislike
+          h6.card-shaves {{post.shave_votes}}
+          a.btn.like(ng-click="updatePost(post._id, 'shave')") Shave
+        #likeDislike
+          h6.card-grows {{post.grow_votes}}
+          a.btn.dislike(ng-click="updatePost(post._id, 'grow')") Grow
   
   // Javascript to Define Controller
   script.
