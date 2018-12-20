@@ -104,37 +104,12 @@ block scripts
       });
     }
 
-    function checkLoginState() {
-     // console.log("Check login state");
-      FB.getLoginStatus(function(response) {
-       // console.log(response.authResponse.userID);
-      statusChangeCallback(response);
-      });
-    }
-
-    function setElements(isLoggedIn){
-      if (isLoggedIn){
-        document.getElementById('profile').style.display = 'block';
-        document.getElementById('logout').style.display = 'block';
-        document.getElementById('fb-btn').style.display = 'none';
-      } else {
-        document.getElementById('profile').style.display = 'none';
-        document.getElementById('logout').style.display = 'none';
-        document.getElementById('fb-btn').style.display = 'block';
-      }
-    }
-
-    function logout(){
-      FB.logout(function(response){
-        setElements(false);
-      });
-    }
   
 block content       
   .div(ng-app='myApp', ng-controller='myCtrl')
     .login-page.row
       .col-md-6
-        img.resize(src='assets/bigbeard.png')
+        img.resize(src='assets/transparent_big.png')
       .col-md-6
         form#myLogin
           h2.page-header  SIGN UP 

@@ -11,17 +11,15 @@ block append content
     hr
     h3 My Posts
     div
-
-      .row
-        .card.col-md-3(ng-repeat='post in postArray', ng-if='post.userId == id_cookie')
-          img.card-img-top(src='http://placehold.it/350x150')
-          .card-block
-            h3.card-title {{post.caption}}
-            h5 {{post.createdAt | date}}
-            #likeDislike
-              h6.card-shaves {{post.shave_votes}} Shaves 
-            #likeDislike
-              h6.card-grows {{post.grow_votes}} Grows
+      .card.col-md-3.hello(ng-repeat='post in postArray', ng-if='post.userId == id_cookie')
+        img.card-img-top(src='http://placehold.it/350x150')
+        .card-block
+          h3.card-title {{post.caption}}
+          h5 {{post.createdAt | date}}
+          #likeDislike
+            h6.card-shaves {{post.shave_votes}} Shaves 
+          #likeDislike
+            h6.card-grows {{post.grow_votes}} Grows
 
     script.
       console.log("cookie kevin");

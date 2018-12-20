@@ -35,6 +35,7 @@ body {
 
 .nav-item a{
 	display:block;
+	overflow:hidden;
 }
 
 .nav-item{
@@ -156,5 +157,13 @@ h3.my_posts{
 @media (max-width:500px){
 	.page-header{
 		font-size:30px;
+	}
+}
+
+@media (max-width:500px){
+	.nav, .nav-item{
+		display:block;
+		position:absolute;
+
 	}
 }
